@@ -1,0 +1,28 @@
+<!--pages/shenqingjiazu.wxml-->
+<!-- <text>pages/shenqingjiazu.wxml</text> -->
+<view  class="jiazumingview">
+<view>
+<input type="text"  placeholder="输入名称的简短字符" class="minginput"  value="{{jianchen}}" bindinput="jiancheninput" /> </view>
+<view class="chaxun"><button bindtap="chaxun">查询</button></view>
+</view>
+
+
+<scroll-view wx:for="{{list}}" wx:key="mingcheng"  >
+<view class="jiazumingview" style="color:blue" id="{{index}}" bindtap="xuandingjiazu" >
+{{item.mingcheng}} 创建者：{{item.chuangjianzhe}}   {{item.dianhua}}
+</view>   
+  
+</scroll-view>
+<view>
+<view  class="jiazumingview">
+申请的家族名:<input type="text" class="jiazuminginput" placeholder="例如碱厂刘" bindinput="jiazumingchenginput"   > </input>
+</view>
+<view  class="jiazumingview">
+申请人的姓名:<input type="text" class="jiazuminginput" placeholder="例如刘晓云" bindblur="jiazushenqingrenblur" bindinptut="jiazushenqinginput" > </input>
+</view>
+<view  class="jiazumingview">
+申请人的电话:<input type="number" class="jiazuminginput" placeholder="输入手机号码吧" bindblur="shenqingrendianhuablur" bindinput="shenqingrendianhuainput" > </input>
+</view>
+
+<button class="zhuce" type="primary" bindtap="zhucejiazu" >申请注册</button>
+</view>

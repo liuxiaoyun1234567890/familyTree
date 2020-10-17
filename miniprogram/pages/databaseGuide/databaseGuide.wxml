@@ -1,0 +1,67 @@
+<!--pages/databaseGuide/databaseGuide.wxml-->
+<scroll-view class="zongview">
+  <!-- <view>
+<view>openid {{openid}}  </view>
+<view>jiazumingcheng {{jiazumingcheng}}  </view>
+<view>jiazushenqingren {{jiazushenqingren}}  </view>
+<view>shenqingrendianhua {{shenqingrendianhua}}  </view>
+</view> -->
+  <view bindtap="shurutishi">
+
+
+    <view class="hangview">
+      <view class="shoumingview" id="ids">系统编码：</view> <input class="valueview" id="id" > </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="openids">操作者身份：</view> <input class="valueview" id="openid"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="mingchengs">家族族群名：</view> <input class="valueview" value="{{jiazumingcheng}}" id="mingcheng" > </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="names" >姓名：</view> <input class="valueview" id="name"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="xingbies">性别：</view> <input class="valueview" id="xingbie"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="chushengs">出生日期：</view> <input class="valueview" id ="chusheng"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview"  id="siwangs">死亡日期：</view> <input class="valueview" id="siwang"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id ="dianhuas">联系电话：</view> <input class="valueview" id="dianhua"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="fuqinids">父亲编码：</view> <input class="valueview" id="fuqinid"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview"id="fuqinnames">父亲姓名：</view> <input class="valueview" id="fuqinxingming"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="muqinids">母亲编码：</view> <input class="valueview" id="muqinid"> </input>
+    </view>
+
+    <view class="hangview">
+      <view class="shoumingview" id="muqinnames"> 母亲姓名：</view> <input class="valueview" id ="muqinname"> </input>
+    </view>
+    <view class="hangview">
+      <view class="shoumingview" id="peiouids">配偶编码：</view> <input class="valueview" id="peiouid"> </input>
+    </view><view class="hangview">
+      <view class="shoumingview" id="peiounames">配偶姓名：</view> <input class="valueview" id="peiouname"> </input>
+    </view><view class="hangview">
+      <view class="shoumingview" id="zinvids">子女编码：</view> <input class="valueview" id="zinvid"> </input>
+    </view><view class="hangview">
+      <view class="shoumingview" id="zinvnames">子女姓名：</view> <input class="valueview" id="zinvname"> </input>
+    </view><view class="hangview">
+      <view class="shoumingview" id="zinvguanxis">子女关系：</view> <input class="valueview" id="zinvguanxi"> </input>
+    </view>
+
+  </view>
+
+
+    
+    
+
+</scroll-view>

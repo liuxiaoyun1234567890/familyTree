@@ -1,0 +1,25 @@
+/* pages/shenqingjiazu.wxss */
+.jiazumingview{
+  margin-left: 50rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50rpx;
+
+}
+.minginput{
+  margin-top: 25rpx;
+  background: rgb(169, 207, 224);
+  width: 400rpx;
+}
+.chaxun{
+    width: 50rpx;
+}
+.jiazuminginput{
+  background: rgb(169, 207, 224);
+  width: 50%;
+  
+  border:solid,1rpx， brown；
+}
+.zhuce{
+  margin-top: 100rpx;
+}

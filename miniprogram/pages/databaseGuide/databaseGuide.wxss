@@ -1,0 +1,19 @@
+/* pages/databaseGuide/databaseGuide.wxss */
+.zongview{
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
+  background: rgb(233, 238, 238);
+}
+.hangview{
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: row;
+}
+.shoumingview{
+  width: 30%;
+  display: contents;
+}
+.valueview{
+  border: solid 1rpx blue ;
+}
