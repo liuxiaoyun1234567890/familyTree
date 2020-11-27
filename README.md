@@ -1,12 +1,15 @@
-# 云开发 quickstart
+# 家谱小程序
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+- git add .  //添加到本地仓库
+- git commit -m "描述"    //上传到暂存区
+- git push origin master   //提交代分之
+- git pull //拉去远程代码
 
-## 参考文档
+- git checkout 分之名  //切换分之
+- git branch -a //查看分之
+- git status 查看修改哪些文件
+- git diff 对比修改文件内容
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+
 
