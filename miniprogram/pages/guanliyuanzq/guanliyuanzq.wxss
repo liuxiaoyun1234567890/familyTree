@@ -1,0 +1,47 @@
+.hangview{
+  width: 100%;
+  text-align: center;
+ margin-top: 40rpx;
+   display: flex;
+   justify-content: center;
+  flex-direction: row;
+}
+.xuhao{
+  /* border: 1rpx red solid; */
+  justify-content: center;
+ width: 20%;
+}
+.xingbie{
+  /* border: 1rpx red solid; */
+  justify-content: center;
+  width :25%
+}
+.yimin{
+  /* border: 1rpx red solid; */
+  justify-content: center;
+  width: 25%;
+}
+.renshu{
+  /* border: 1rpx red solid; */
+  justify-content: center;
+  width:30%
+}
+.biaoming{
+  color: rgb(175, 118, 146);
+  margin-top: 30rpx;
+}
+.xuhao2{
+  /* border: 1rpx red solid; */
+  justify-content: center;
+ width: 10%;
+}
+.openid{
+ /* border: 1rpx red solid; */
+ justify-content: center;
+ width: 80%;
+}
+.renci2{
+ /* border: 1rpx red solid; */
+ justify-content: center;
+ width: 20%;
+}

@@ -3,6 +3,7 @@ const app = getApp()
 
 Page({
   data: {
+   
     avatarUrl: './user-unlogin.png',
     userInfo: {},
     logged: false,
@@ -11,11 +12,13 @@ Page({
     openid:"",
     jiazumingcheng:"",
     jiazushenqingren:"",
+    jiazushenqingrenid:"",
     shenqingrendianhua:""
   },
 
   onLoad: function() {
-   
+    // console.log("1121212，进入了on load")
+   var that=this
     
 
   
@@ -25,18 +28,21 @@ Page({
       })
       return 
     }
-    this.onGetOpenid()
-    if (app.globalData.jiazumingcheng!=""){
-      this.setData({
-    jiazumingcheng:app.globalData.jiazumingcheng,
-    jiazushenqingren:app.globalData.jiazushenqingren,
-    shenqingrendianhua:app.globalData.shenqingrendianhua
-       })
-    } else{
-      wx.redirectTo({
-        url: '../shenqingjiazu/shenqingjiazu'
-      })
-    }
+    // that.onGetOpenid()
+    // console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,2020110100)
+    // if (app.globalData.jiazumingcheng!=""){
+    //   that.setData({
+    // jiazumingcheng:app.globalData.jiazumingcheng,
+    // jiazushenqingren:app.globalData.jiazushenqingren,
+    // shenqingrendianhua:app.globalData.shenqingrendianhua
+   
+    //    })
+    //    console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,20201101)
+    // } else{
+    //   wx.redirectTo({
+    //     url: '../shenqingjiazu/shenqingjiazu'
+    //   })
+    // }
    
     // 获取用户信息
     wx.getSetting({
@@ -45,6 +51,8 @@ Page({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
+              app.globalData.userInfo=res.userInfo
+              //  console.log(app.globalData.userInfo,res.userInfo,"qujuuserinfo")
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo
@@ -72,7 +80,7 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
+        // console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
         this.setData({
          openid:   app.globalData.openid 
@@ -84,44 +92,14 @@ Page({
         // })
       },
       fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
+        // console.error('[云函数] [login] 调用失败', err)
         wx.navigateTo({
           url: '../deployFunctions/deployFunctions',
         })
       }
     })
-  //   wx.getStorage  ({
-  //     key: 'jiazumingcheng',
-  //     success (res) { 
-  //       console.log(res.data)
-  //       app.globalData.jiazumingcheng=res.data
-  //       this.setData({
-  //         jiazumingcheng:app.globalData.jiazumingcheng
-  //       })
-  //     }
-  //   })
-  //   wx.getStorage({
-  //     key: 'jiazushenqingren',
-  //     success (res) { 
-  //        console.log(res.data)
-  //       app.globalData.jiazushenqingren=res.data
-  //       this.setData({
-  //         jiazushenqingren:app.globalData.jiazushenqingren
-  //       })
-  //     }
-  //   })
-  //   wx.getStorage({ 
-  //     key: 'shenqingrendianhua',
-  //     success (res) {
-  //       console.log(res.data)
-  //       app.globalData.shenqingrendianhua=res.data
-  //     this.setData({
-  //     shenqingrendianhua:app.globalData.shenqingrendianhua
-  //   })
-  // }
-  //   })
-
-  },
+   
+  },//// 调用云函数
 
   
   dengji: function () { 
@@ -154,21 +132,21 @@ Page({
     })
    .get({
       success:res=> {
-        console.log(res,"成功回调1")
+        // console.log(res,"成功回调1")
       //  wx.showModal({
       //    title: '666:'+this.data.openid,
       //    duration:5000
       //  })
         // res.data 包含该记录的数据
-        console.log(res.data.length,"成功回调2")
+        // console.log(res.data.length,"成功回调2")
         if( res.data.length!=0){ 
          
-           console.log(res.data,"成功回调3",res.data.length)
+          //  console.log(res.data,"成功回调3",res.data.length)
        
          var dengji=res.data[0]
          getApp().globalData.cishu=dengji["cishu"]+1
 
-          console.log(getApp().globalData.cishu,dengji,1234)
+          // console.log(getApp().globalData.cishu,dengji,1234)
          testDB.collection('userku').doc(dengji["_id"]).update({
           // data 传入需要局部更新的数据 
           data: {
@@ -181,14 +159,14 @@ Page({
               title: '1成功登记数据库title，老人',
               duration:5000
             })
-             console.log(res,2221)
+            //  console.log(res,2221)
           }
         
         })
       }else{ 
         // getApp().globalData.cishu=1
-        console.log(res,"成功回调且为新人")
-        testDB.collection("userku").add({ 
+        // console.log(res,"成功回调且为新人")
+        testDB.collection("userku").add({  
      
           data: {
               // _id: this.data.openid
@@ -202,7 +180,7 @@ Page({
           
           success: res => {
             // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-            console.log(res, "添加xinren成功5")
+            // console.log(res, "添加xinren成功5")
             
             // wx.showModal({
             //   title: '2成功登记数据库title，新人',
@@ -216,7 +194,7 @@ Page({
             //   duration:5000
             // })
            
-             console.error('[数据库] [新增记录] 失败：', err,6)
+            //  console.error('[数据库] [新增记录] 失败：', err,6)
           },
         })
 
@@ -236,11 +214,34 @@ Page({
     //  我想登记一下用户信息
   },
   shenqingjiazu:function(){
+    //  console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,"2020110100准备进入了SHENQINGREN", app.globalData.openid,this.data.openid)
     wx.redirectTo({
       url: '../shenqingjiazu/shenqingjiazu'
     })
     
-  }
+  },
+  onShow: function () {
+    this.onGetOpenid()
+    app.globalData.jiazumingcheng= wx.getStorageSync('jiazumingcheng')
+    app.globalData.jiazushenqingren= wx.getStorageSync('jiazushenqingren')
+    app.globalData.jiazushenqingrenid= wx.getStorageSync('jiazushenqingrenid')
+    app.globalData.shenqingrendianhua= wx.getStorageSync('shenqingrendianhua')
+    if (app.globalData.jiazumingcheng!=""){//全局变量家族名称存在
+      this.setData({
+    jiazumingcheng:app.globalData.jiazumingcheng,
+    jiazushenqingren:app.globalData.jiazushenqingren,
+    jiazushenqingrenid:app.globalData.jiazushenqingrenid,
+    shenqingrendianhua:app.globalData.shenqingrendianhua
+   
+       })
+
+    } else{
+      wx.redirectTo({
+        url: '../shenqingjiazu/shenqingjiazu'
+      })
+    }
+
+  },
 
 
 

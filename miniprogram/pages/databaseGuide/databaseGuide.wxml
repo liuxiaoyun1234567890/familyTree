@@ -1,64 +1,83 @@
 <!--pages/databaseGuide/databaseGuide.wxml-->
-<scroll-view class="zongview">
-  <!-- <view>
-<view>openid {{openid}}  </view>
-<view>jiazumingcheng {{jiazumingcheng}}  </view>
-<view>jiazushenqingren {{jiazushenqingren}}  </view>
-<view>shenqingrendianhua {{shenqingrendianhua}}  </view>
-</view> -->
-  <view bindtap="shurutishi">
+
+<view class="xuanxiangview" >
+
+<radio-group class="radiogroup1" bindtap="fangfa">
+<radio id="zengjia" checked="{{fangfa=='zengjia'}}"  >增加 </radio>
+<radio id="xiugai" checked="{{fangfa=='xiugai'}}" >修改 </radio>
+<radio id="chaxun" checked="{{fangfa=='chaxun'}}" >查询 </radio>
+</radio-group>
+<checkbox  class="radiogroup2" checked="{{true}}" bindtap="xianshibianma">显示编码 </checkbox>
+
+<input class="radiogroup3" wx:if="{{fangfa=='chaxun'}}" type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" ></input> 
+ </view>
+
+ <view wx:if="{{fangfa=='chaxun'}}">
+  <view class="hangview">临时数据可查{{list.length}}人,
+    <text  style="color:red" bindtap="chaxunxuhao"  id="-" >上一位</text>
+   ( {{listxuhao+1}} )
+    <text style="color:red" bindtap="chaxunxuhao"  id="+" >下一位</text>
+    
+     </view>
 
 
-    <view class="hangview">
-      <view class="shoumingview" id="ids">系统编码：</view> <input class="valueview" id="id" > </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="openids">操作者身份：</view> <input class="valueview" id="openid"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="mingchengs">家族族群名：</view> <input class="valueview" value="{{jiazumingcheng}}" id="mingcheng" > </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="names" >姓名：</view> <input class="valueview" id="name"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="xingbies">性别：</view> <input class="valueview" id="xingbie"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="chushengs">出生日期：</view> <input class="valueview" id ="chusheng"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview"  id="siwangs">死亡日期：</view> <input class="valueview" id="siwang"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id ="dianhuas">联系电话：</view> <input class="valueview" id="dianhua"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="fuqinids">父亲编码：</view> <input class="valueview" id="fuqinid"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview"id="fuqinnames">父亲姓名：</view> <input class="valueview" id="fuqinxingming"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="muqinids">母亲编码：</view> <input class="valueview" id="muqinid"> </input>
-    </view>
+</view>
 
-    <view class="hangview">
-      <view class="shoumingview" id="muqinnames"> 母亲姓名：</view> <input class="valueview" id ="muqinname"> </input>
-    </view>
-    <view class="hangview">
-      <view class="shoumingview" id="peiouids">配偶编码：</view> <input class="valueview" id="peiouid"> </input>
-    </view><view class="hangview">
-      <view class="shoumingview" id="peiounames">配偶姓名：</view> <input class="valueview" id="peiouname"> </input>
-    </view><view class="hangview">
-      <view class="shoumingview" id="zinvids">子女编码：</view> <input class="valueview" id="zinvid"> </input>
-    </view><view class="hangview">
-      <view class="shoumingview" id="zinvnames">子女姓名：</view> <input class="valueview" id="zinvname"> </input>
-    </view><view class="hangview">
-      <view class="shoumingview" id="zinvguanxis">子女关系：</view> <input class="valueview" id="zinvguanxi"> </input>
-    </view>
+<scroll-view class="zongview"> 
+ 
 
-  </view>
+<view  bindtap="shurutishi">
+   <view wx:for-items="{{biaozhunku}}" wx:for-item="xiang" wx:for-index="xu" wx:for-key="xu">
+    <view class="hangview" wx:if="{{xiang.tb==true || xianshibianma==true}}">
+      <view class="shoumingview" id="{{xiang.name}}"  >{{xiang["tishi"]}}
+      </view> 
+      <input class="{{!xiang.bianji  ||fangfa=='chaxun'?'valueview valueview1': 'valueview'   }}"   id="{{xu}}"  type="{{xiang.num==true?'number':'text'}}" disabled="{{!xiang.bianji ||fangfa=='chaxun'}}" bindinput="shurushuju"   bindlongtap="shurushujulangtap"      value="{{xiang.zhi}}" cursor="150rpx" placeholder="{{fangfa=='chaxun'?'':(xiang.name=='id'?'长按取码':xiang.tishi)}}" placeholder-class="tishiclass"  > </input>
+     
+      <view  style="color:red"  wx:if="{{xiang['name']=='_openid'  && xiang['zhi']==openid}}"  >我
+        <!--  xiang['lei']=='' && xiang['name']=='name'   .&& -->
+      </view> 
+    </view>
+</view>
+
+<view class="hangview" >
+ 数据状态：
+  <view wx:if="{{fangfa=='zengjia'}}">增加</view> 
+  <view wx:if="{{fangfa=='xiugai'}}">修改</view> 
+  <view wx:if="{{fangfa=='chaxun'}}">查询</view>
+  模式 
+  <text class="radiogroup4" wx:if="{{fangfa!='chaxun'}}" bindtap="baocunshuju" >保存数据</text> 
+  <text  class="radiogroup4" wx:if="{{fangfa=='chaxun'  && biaozhunku[1].zhi==openid}}" bindtap="shanshuju"  id="{{listxuhao}}" >删除数据</text> 
+</view>
+<view class="pzjjview"  wx:if="{{ fangfa!='chaxun'}}"  > <text class="pzjj" id="zinv+" bindtap="peiozinvzeng" > 子女增</text>和<text class="pzjj" id="peio+" bindtap="peiozinvzeng" > 配偶增</text>   配偶子女个数不必减少
+</view> 
+      
+
+<view class="hangview" >
+  
+  <view class="valueview ">允许编辑颜色</view> 
+  <view class="valueview valueview1">禁止编辑颜色</view>
+</view>
+
+<view class="valueview2" wx:if="{{fangfa=='chaxun'}}">
+<view>操作者身份 {{openid}}  </view>
+<view>该家族名称 {{jiazumingcheng}}  </view>
+<view>家族创建人 {{jiazushenqingren}}  </view>
+<view>家族创建人 {{jiazushenqingrenid}}  </view>
+<view>创建者电话 {{shenqingrendianhua}}  </view>
+<!-- <view>暂存手机人数 {{list.length}}  </view> -->
+
+
+
+</view>
+
+
+</view>
+
+
+
+
+
+ 
 
 
     

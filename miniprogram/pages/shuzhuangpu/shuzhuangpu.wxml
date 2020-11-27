@@ -1,0 +1,42 @@
+<!--pages/shuzhuangpu/shuzhuangpu.wxml-->
+<scroll-view scroll-x="true" scroll-y="true">
+<view class="qidianview" wx:if="{{xiayidaixi==0}}"> 
+    起点姓名<input class="inputview"  type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" value="刘晓云" ></input> 
+     
+ </view>
+ <text  class="xiayidai"  wx:if="{{xiayidaixi!=0}}" bindtap="xiyidaishuju">调入下一代(第{{xiayidaixi}}代)数据</text>
+ <view wx:if="{{jiaputotal.length>0}}" class="chongmingview"  >
+      <view> 搜索记录如下 </view>
+      
+          <view  wx:for="{{jiaputotal}}" wx:for-index="index" wx:for-item="xiang"  wx:for-key="index" class="chongmingview yihang"  >
+          <text  id="{{index}}"  bindtap="xuezerenyuan" >{{index+1}}：第{{xiang.daixi}}代{{xiang.name}}-{{xiang.xingbie}} </text>
+           <text wx:if="{{xiang.chusheng!=''}}"> 出生日期：{{xiang.chusheng}} </text>
+           <text wx:if="{{xiang.chusheng==''}}"> 出生日期：-------- </text>
+           <text wx:if="{{xiang.fuqin.name!=''}}"> 父亲：{{xiang.fuqin.name}}  </text>
+           <text wx:if="{{xiang.muqin.name!=''}}"> 母亲：{{xiang.muqin.name}}  </text>
+           
+           <block wx:if="{{xiang.peio.length==0}}">
+             <text> 配偶：------</text>
+           </block>
+           <block wx:if="{{xiang.peio.length!=0}}">
+             <text> 配偶：</text>
+              <text wx:for="{{xiang.peio}}" wx:for-item="peio"  wx:for-index="peioxu"  >  
+               <text wx:if="{{peioxu==0}}" > {{peio.name}}  </text>
+               <text wx:if="{{peioxu!=0}}" > ,{{peio.name}}  </text>
+              </text>
+            </block>
+
+            <block wx:if="{{xiang.zinv.length!=0}}">
+             <text> 子女：</text>
+              <text wx:for="{{xiang.zinv}}" wx:for-item="zinv"  wx:for-index="zinvxu"  >  
+               <text wx:if="{{zinvxu==0}}" > {{zinv.guanxi}}{{zinv.name}}  </text>
+               <text wx:if="{{zinvxu!=0}}" > ,{{zinv.guanxi}}{{zinv.name}}  </text>
+              </text>
+            </block>
+
+
+          </view> 
+      
+ </view>
+
+</scroll-view>

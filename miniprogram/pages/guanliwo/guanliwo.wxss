@@ -1,0 +1,46 @@
+/* pages/guanliwo/guanliwo.wxss */
+.zu{
+  /* background: aquamarine; */
+  margin: 10rpx;
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction:row ;
+  }
+  .hang{
+    /* border:  1px rgb(158, 120, 120) solid; */
+    margin-top: 20rpx;
+    font-size: 35rpx;
+    color: rgb(4, 20, 15);
+    /* border-bottom: none; */
+    
+  }
+  .hang2{
+    color:red;
+  }
+  .jiazutotal{
+    margin-left: 20rpx;
+  }
+  .pagehang {
+   margin-top: 30rpx; 
+   margin: 10rpx;
+   }
+   .hangyetext{
+     font-size: small;
+     margin: 20rpx;
+   }
+   .jianjie{
+     
+    
+   }
+   .lianjie{
+     font-size: 25rpx;
+     color:blue;
+     margin-left: 35rpx;
+   }
+   .xu {
+   
+   }
+   .shuju0{
+     margin: 30rpx;
+     margin-left: 50rpx;
+   }

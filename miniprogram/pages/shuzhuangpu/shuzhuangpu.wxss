@@ -1,0 +1,26 @@
+/* pages/shuzhuangpu/shuzhuangpu.wxss */
+.qidianview{
+  display: flex;
+  flex-direction: row;
+  }
+  .inputview {
+    margin-left: 20rpx;
+    width: 50%;
+    background: rgb(195, 238, 110);
+    font-size:30rpx;
+  }
+  .chongmingview{
+    margin-top: 20rpx;
+    padding: 5rpx;
+  }
+  .yihang{
+    /* display: flex; */
+    flex-direction: row;
+    width:2000rpx;
+  }
+  .xiayidai{
+    margin-left: 180rpx;
+    color: rgb(255, 0, 140);
+    text-align: center;
+    width: 100%;
+  }

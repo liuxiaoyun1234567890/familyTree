@@ -1,0 +1,33 @@
+<!--pages/guanliyuanjiaoliu/guanliyuanjiaoliu.wxml-->
+<!-- <text>pages/guanliyuanjiaoliu/guanliyuanjiaoliu.wxml</text> -->
+
+<scroll-view>
+  
+  <view class="jiazutotal"> 家族数量：{{jiazutotal}}个 （每页{{pagejilu}}个 最大页数{{totalpage}}） </view>
+    <view class="pagehang"  wx:if="{{totalpage>1}}" >
+     <text class="hangyetext" id="0" bindtap="xuanyehao"> 首页</text>
+     <text style="color:green" class="hangyetext" id="1" bindtap="xuanyehao"> 前一页</text>
+     <text class="hangyetext" bindtap="xuanyehao">({{yehao+1}})</text>
+     <text style="color:green"  class="hangyetext" id="2" bindtap="xuanyehao"> 后一页</text>
+     <text class="hangyetext" id="3" bindtap="xuanyehao"> 尾页</text>
+     </view>
+  <view wx:for="{{jiazumingchengku}}" wx:for-index="index" wx:for-item="xiang" wx:key="_id" >
+    <block >
+      <view class="zu ">
+        <view  class="hang hang2"   >序    号： {{yehao*pagejilu+index+1}} </view>
+        <view  class="hang" > 家族名称： {{xiang["mingcheng"]}}</view>
+        <view class="hang hang2">目前人数：{{xiang["renshu"]}}</view> 
+        <view class="hang">创建者：{{xiang["chuangjianzhe"]}}</view> 
+        <view class="hang" >{{xiang["_openid"]}} 
+        <text  style="color:red"  wx:if="{{xiang['_openid']==openid}}"  >我 </text></view>
+        <view class="hang">创建者电话：{{xiang["dianhua"]}}</view> 
+        <view class="hang">创建时间：{{xiang["time"]}}</view> 
+      </view>
+    </block>
+
+
+  </view>
+  
+</scroll-view>
+
+

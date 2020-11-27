@@ -1,4 +1,35 @@
 /* pages/databaseGuide/databaseGuide.wxss */
+.xuanxiangview{
+  display: flex;
+  justify-self: start;
+  flex-direction: row;
+  
+}
+.radiogroup1{
+  width: 55%;
+  background: yellowgreen;
+   font-size: 35rpx;
+  
+
+}
+.radiogroup2{
+  width: 25%;
+  background: yellowgreen;
+  font-size: 28rpx;
+
+}
+.radiogroup3{
+  margin-left: 20rpx;
+  width: 20%;
+  background: yellowgreen;
+  font-size:30rpx;
+}
+ .radiogroup4{
+    margin-left: 20rpx;
+    background: yellowgreen;
+    font-size:40rpx;
+
+}
 .zongview{
   width: 96%;
   margin-left: 2%;
@@ -9,11 +40,49 @@
   margin-top: 50rpx;
   display: flex;
   flex-direction: row;
+  font-size:40rpx
 }
 .shoumingview{
-  width: 30%;
-  display: contents;
+   width: 30%; 
+  display:list-item ;
 }
 .valueview{
+  width: 490rpx;
   border: solid 1rpx blue ;
+  background-color: rgb(168, 238, 174);
+  font-size: 28rpx;
+}
+.valueview1 {
+  /* 禁止编辑选项 */
+  width: 480rpx;
+   background-color: rgb(239, 245, 245); 
+  font-size: 28rpx;
+  border: 0em;
+  
+}
+.valueview2 {
+  /* 基本信息 */
+  width: 480rpx;
+   background-color: rgb(239, 245, 245); 
+  font-size: 28rpx;
+  border: 0em;
+  
+}
+.idfont{
+  font-size: 28rpx;
+}
+.pzjj{
+   margin: 5rpx; 
+   /* border: 2rpx rgb(122, 240, 154) solid; */
+  background-color: rgb(122, 240, 54); 
+  /* margin-top: 50rpx; */
+  font-size: 30rpx
+
+}
+.pzjjview{
+  margin-top: 50rpx;
+}
+.tishiclass{
+  font-size: medium;
+  color: tomato;
 }

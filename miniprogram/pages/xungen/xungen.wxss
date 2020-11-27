@@ -1,0 +1,36 @@
+/* pages/xungen/xungen.wxss */
+.qidianview{
+display: flex;
+flex-direction: row;
+}
+.inputview {
+  margin-left: 20rpx;
+  width: 50%;
+  background: rgb(195, 238, 110);
+  font-size:30rpx;
+}
+.chongmingview{
+  margin-top: 20rpx;
+  padding: 5rpx;
+}
+.lianyou{
+  color:red;
+  /* text-underline-position: below ; */
+  /* text-decoration:underline */
+}
+.lianwu{
+  color:blue
+  }
+  .yihang{
+    /* display: flex; */
+    flex-direction: row;
+  }
+  .dibu{
+    size: 20rpx;
+    margin-top: 200rpx;
+  }
+  .huizong{
+    size:10rpx;
+    color: cadetblue;
+    margin-top: 20rpx;
+  }

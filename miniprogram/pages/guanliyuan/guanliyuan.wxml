@@ -1,0 +1,27 @@
+<!--pages/guanliyuan/guanliyuan.wxml-->
+<!-- <text>pages/guanliyuan/guanliyuan.wxml</text> -->
+<scroll-view>
+
+  <view class="jiazutotal"> 登记人数：{{jiazutotal}}个 （每页{{pagejilu}}个 最大页数{{totalpage}}） </view>
+    <view class="pagehang" wx:if="{{totalpage>1}}" >
+     <text class="hangyetext" id="0" bindtap="xuanyehao"> 首页</text>
+     <text style="color:green" class="hangyetext" id="1" bindtap="xuanyehao"> 前一页</text>
+     <text class="hangyetext" bindtap="xuanyehao">({{yehao+1}})</text>
+     <text style="color:green"  class="hangyetext" id="2" bindtap="xuanyehao"> 后一页</text>
+     <text class="hangyetext" id="3" bindtap="xuanyehao"> 尾页</text>
+     </view> 
+ <view  class="zu" wx:for="{{renyuanlist}}" wx:for-index="xu" wx:for-item="xiang" wx:for-key="name" >
+ <view class="xu" style="color:green"> {{ yehao*pagejilu+xu+1}}_ </view>
+<view class="jianjie">  <text> {{xiang.jianjie}}</text></view>
+
+
+ 
+
+
+</view>
+
+
+
+
+
+</scroll-view>

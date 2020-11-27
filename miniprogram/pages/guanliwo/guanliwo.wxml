@@ -1,0 +1,46 @@
+<!--pages/guanliwo/guanliwo.wxml，与管理员专区的区别2处，-->
+<!--1、顶端名称不一致 2、where zong为家族名称  3diaoquyeshusuju中法人条件 _openid:this.data.openid -->
+<scroll-view>
+
+<view class="jiazutotal"> 登记人数：{{jiazutotal}}个 （每页{{pagejilu}}个 最大页数{{totalpage}}） </view>
+  <view class="pagehang"  wx:if="{{totalpage>1}}" >
+   <text class="hangyetext" id="0" bindtap="xuanyehao"> 首页</text>
+   <text style="color:green" class="hangyetext" id="1" bindtap="xuanyehao"> 前一页</text>
+   <text class="hangyetext" bindtap="xuanyehao">({{yehao+1}})</text>
+   <text style="color:green"  class="hangyetext" id="2" bindtap="xuanyehao"> 后一页</text>
+   <text class="hangyetext" id="3" bindtap="xuanyehao"> 尾页</text>
+   </view> 
+<view    wx:for="{{renyuanlist}}" wx:for-index="xu" wx:for-item="xiang" wx:for-key="name" >
+ <view class="zu">
+  <view class="xu" style="color:green"> {{ yehao*pagejilu+xu+1}}_ </view>
+<view class="jianjie">  <text> {{xiang.jianjie}}</text></view>
+</view>
+<view class="lianjie ">  <text> {{xiang.lianjie}}</text></view>
+<view wx:if="{{xiang._openid==openid}}">
+<button  type="warn" id="{{xiang._id}}" data-xu="{{xu}}" bindtap="shanchudange" >删除第{{ yehao*pagejilu+xu+1}}条数据↑ </button>  
+</view>
+
+
+
+
+</view>
+
+<view class="shuju0"  wx:if="{{jiazutotal==0}}" >
+<view class="shuju0"> <text> 欢迎: {{nickName}}的到来</text></view>
+<view class="shuju0"><text> 录入数据后才能查看你的数据状态。注意如下内容</text></view>
+<view class="shuju0"><text> 1、自己的数据自己随时删除</text></view>
+<view class="shuju0"><text> 2、自己的数据其他人员不能删除、修改（管理员除外}</text></view>
+<view class="shuju0"><text> 3、输入录入完毕后切记将他人编码链入自己的数据
+  </text></view>
+  <view class="shuju0"><text> 4、链入他人编码可以链入本族人员也可以是他族人员  </text></view>
+  <view class="shuju0"><text> 5、链入他人编码后可以用于自己（或他人）跟踪自己的长辈或小辈，甚至其他亲戚  </text></view>
+  <view class="shuju0"><text> 6、隐私安全：电话可以不填、地址限长8个字  </text></view>
+  <view class="shuju0"><text> 7、日期：可以不精确，但前四位为年，前6位为年月 ，8位为年月日，月日小于10时请加0。  </text></view>
+  <view class="shuju0"><text> 8、姓名：本族内不可以重名，若重名请在真实姓名后加注数字或字母予以区分。  </text></view>
+  <view class="shuju0"><text> 缅怀先辈、在者同根，祝大家身体健康万事如意！ </text></view>
+
+</view>
+
+
+
+</scroll-view>

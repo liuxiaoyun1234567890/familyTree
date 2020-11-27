@@ -1,20 +1,19 @@
 {
   "pages": [
-    "pages/databaseGuide/databaseGuide",
+   "pages/shuzhuangpu/shuzhuangpu",
     "pages/index/index",
     "pages/shenqingjiazu/shenqingjiazu",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
-    
-    "pages/addFunction/addFunction",
+    "pages/databaseGuide/databaseGuide",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
-    "pages/im/im",
-    "pages/im/room/room"
+     "pages/xungen/xungen",
+    "pages/guanliyuan/guanliyuan",
+    "pages/guanliyuanzq/guanliyuanzq",
+    "pages/guanliwo/guanliwo",
+   
+    "pages/guanliyuanjiaoliu/guanliyuanjiaoliu"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

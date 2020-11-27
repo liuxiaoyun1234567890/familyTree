@@ -1,0 +1,31 @@
+/* pages/guanliyuanjiaoliu/guanliyuanjiaoliu.wxss */
+
+.zu{
+/* background: aquamarine; */
+margin: 10rpx;
+margin-top: 50rpx;
+display: flex;
+flex-direction:column ;
+}
+.hang{
+  /* border:  1px rgb(158, 120, 120) solid; */
+  margin-top: 20rpx;
+  font-size: 35rpx;
+  color: rgb(4, 20, 15);
+  /* border-bottom: none; */
+  
+}
+.hang2{
+  color:red;
+}
+.jiazutotal{
+  margin-left: 20rpx;
+}
+.pagehang {
+ margin-top: 30rpx; 
+ margin: 10rpx;
+ }
+ .hangyetext{
+   font-size: small;
+   margin: 20rpx;
+ }

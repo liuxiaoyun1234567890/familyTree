@@ -9,6 +9,7 @@ Page({
    jianchen:"碱厂",
    jiazumingcheng:"",
    jiazushenqingren:"",
+   jiazushenqingrenid:"",
    shenqingrendianhua:"",
    list:[{"mingcheng":"碱厂刘","chuangjianzhe":"刘晓云","dianhua":"13832429913"}]
   },
@@ -330,6 +331,8 @@ Page({
    
     getApp().globalData.jiazumingcheng=that.data.list[id].mingcheng,
     getApp().globalData.jiazushenqingren=that.data.list[id].chuangjianzhe,
+    // console.log(that.data.list)
+    getApp().globalData.jiazushenqingrenid=that.data.list[id]._openid,
     getApp().globalData.shenqingrendianhua=that.data.list[id].dianhua
 
     wx.showModal({
@@ -351,6 +354,10 @@ Page({
           wx.setStorage({
             key:"jiazushenqingren",
             data:getApp().globalData.jiazushenqingren})
+            wx.setStorage({
+              key:"jiazushenqingrenid",
+              data:getApp().globalData.jiazushenqingrenid})
+
             wx.setStorage({
               key:"shenqingrendianhua",
               data:getApp().globalData.shenqingrendianhua
