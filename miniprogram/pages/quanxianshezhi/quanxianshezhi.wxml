@@ -1,0 +1,100 @@
+<!--pages/quanxianshezhi/quanxianshezhi.wxml-->
+<!-- <text>pages/quanxianshezhi/quanxianshezhi.wxml</text> -->
+<view>
+  <view  class="shenqingbiankuang">
+      <block wx:for="{{jiazuxinxi}}" wx:for-index="xu" wx:for-item="jiazuxinxi" >
+      <view style="margin-left:150rpx">家族权限设置基本情况 </view>
+      <view style="margin-top:20rpx">家族名称：<text style="color:red">{{jiazuxinxi.mingcheng}}</text> </view>
+      <view style="margin-top:20rpx">创建者姓名：<text style="color:red">{{jiazuxinxi.chuangjianzhe}}</text></view>
+      <view style="margin-top:20rpx">创建者电话：<text style="color:red">{{jiazuxinxi.dianhua}}</text></view>
+      <view style="margin-top:20rpx">创建时间：<text style="color:red">  {{jiazuxinxi.time}}</text></view>
+      <view style="margin-top:20rpx">  系统强制关闭：
+          <text wx:if="{{jiazuxinxi.qiangzhiguanbi==true}}" style="color:red"> 强制关闭</text> 
+          <text wx:if="{{jiazuxinxi[0].qiangzhiguanbi!=true}}" style="color:red"> 系统正常</text> 
+       </view>
+
+      <view style="margin-top:20rpx" bindtap="zizhuguanbi">  家族自主关闭:
+        <text wx:if="{{jiazuxinxi.zizhuguanbi==true}}" style="color:green"> 该家族已关闭</text> 
+        <text wx:if="{{jiazuxinxi.zizhuguanbi!=true}}" style="color:green"> 正常使用</text>  
+      </view>
+
+      <view style="margin-top:20rpx;"  class="mimahang" bindtap="xuanmima" id="zong">
+          <view style="width:33%;">
+            密码制:
+          </view>
+          <view wx:if="{{mimazhi==false }}" style="width:30%;">
+            <text style="color:green"> 无密码</text> 
+          </view>
+          <view  wx:if="{{mimazhi==true}}"style="width:30%;">
+            <text style="color:green; width: 30%;"> 密码登录 </text> 
+          </view> 
+          <view wx:if="{{mimazhi!=false && openid== jiazushenqingrenid}}">
+                <input id="shumima" class="mimainput" type="number" placeholder="设置密码吧" value="{{jiazuxinxi.mima==underfind?'':jiazuxinxi.mima}}" bindinput="jizumima" ></input>
+           </view>
+        </view>
+
+        <view style="margin-top:20rpx;" bindtap="shiyongbaimingdan">白名单制：
+         <text wx:if="{{jiazuxinxi.baimingdan!==false }}" style="color:green"> 启用白名单</text> 
+         <!-- <text wx:if="{{jiazuxinxi.baimingdan!==false && openid== jiazushenqingrenid }}" style="color:black"> 维护白名单数据</text>  -->
+         <text wx:if="{{jiazuxinxi.baimingdan==false}}"   style="color:green">  不使用白名单</text> 
+        </view>
+
+
+      <view  style="margin-top:20rpx; color:blue" wx:if="{{openid==jiazushenqingrenid}}"> 
+        管理员谨慎设置的四项数据，将会影响其他人员操作本族数据的进入方式。
+        <text style="color:green" bindtap="baocuncanshu"> 确认保存 </text> 
+       </view>
+       </block>
+
+
+      </view>
+      
+
+        <view  class="shenqingbiankuang"  wx:if="{{jiazuxinxi[0].baimingdan!==false && openid==jiazushenqingrenid && baimingdanlist.length!=0}}">
+          <text style="margin-left:30rpx;color:blue">有{{baimingdanlist.length}}条加入本族的申请，请及时处理</text>
+            <block wx:for="{{baimingdanlist}}" wx:for-index="xu"  wx:for-item="xiang">
+            <view style="margin-top:30rpx;"> 
+            <text style="margin-left:10rpx;color:blue;" > {{xiang.nicheng}}  </text>已申请：
+            <text  style="margin-left:10rpx;color:green;" id="{{xiang._id}}"  data-fangshi="xiugai" data-zhi="{{true}}" data-xu="{{xu}}" bindtap="biaomingdanshenhe" >我同意</text>
+            <text  style="margin-left:30rpx;color:red;" id="{{xiang._id}}"    data-fangshi="shanchu" data-zhi=""  data-xu="{{xu}}" bindtap="biaomingdanshenhe" >拒绝加入</text>
+            </view>
+            </block>
+          </view> 
+
+          <view  class="shenqingbiankuang"  wx:if="{{jiazuxinxi[0].baimingdan!==false && openid==jiazushenqingrenid  }}">
+          <text style="margin-left:30rpx;color:blue" bindtap="duqubaimingdanquanbu">查阅白名单前20名情况(黑白互转)</text>
+            <block wx:for="{{baimingdantotal}}" wx:for-index="xu"  wx:for-item="xiang">
+            <view style="margin-top:30rpx;"> 
+               <!-- {{xiang.mingdanopenid}}- -->
+            <text style="margin-left:10rpx;color:blue;" > {{xiang.nicheng}}  </text>：
+            <text  style="margin-left:10rpx;color:green;" id="{{xiang._id}}"  data-fangshi="xiugai" data-zhi="{{false}}" data-xu="{{xu}}" bindtap="biaomingdanshenhequanbu" wx:if="{{xiang.shenhe==true}}" >转为黑名单</text>
+            <text  style="margin-left:30rpx;color:red;" id="{{xiang._id}}"    data-fangshi="xiugai" data-zhi="{{true}}"  data-xu="{{xu}}" bindtap="biaomingdanshenhequanbu"  wx:if="{{xiang.shenhe==false}}" >转为白名单</text>
+            </view>
+            </block>
+          </view> 
+
+
+
+
+        <view  class="shenqingbiankuang"  wx:if="{{jiazuxinxi[0].baimingdan!==false && openid==jiazushenqingrenid }}">
+         （善意提示：在首次启用白名单时应初始，避免已使用的人再次申请，多次初始也可以，但可能将已申请但未曾录入人员排除在外，请谨慎使用本功能。）废弃原白名单，将已录入人员<text  style="color:green"  bindtap="chushihuabaimingdan">初始为白名单</text>
+        </view>
+
+        
+
+
+  <!-- 全族数据关闭: true false   
+
+  使用白名单制：true false
+
+  若有数据可将现有人员的录入IP 初始化
+
+ 后续 需申请，同意，库中有此人就可操作，否则转入申请，
+ 
+ 均在一个页面完成
+
+ 先展示 在判断是否是管理员，管理员可修改权限，批准白名单申请 
+
+ 白名单的申请。  -->
+
+</view>

@@ -1,7 +1,7 @@
 
 
 const cloud = require('wx-server-sdk')
- 
+ //删除人员的1条记录
 cloud.init({
   // env: '***',//你的开发环境
   traceUser: true
@@ -14,7 +14,7 @@ exports.main = async(event, context) => {
   try {
     return await db.collection('jiazurenyuan').doc(id).remove()
  
-  } catch (e) {
+  } catch (e) { 
     console.log(e)
   }
 }

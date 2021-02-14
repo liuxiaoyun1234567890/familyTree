@@ -1,5 +1,7 @@
 // pages/databaseGuide/databaseGuide.js
 
+// const { callFunction } = require("wx-server-sdk")
+
 const app = getApp()
 
 Page({
@@ -8,7 +10,7 @@ Page({
     
     peiosl:1,
     zinvsl:1,
-    xianshibianma:true,
+    // xianshibianma:true,
     fangfa:"chaxun",//chaxun,xiugai,zengjia
      openid: '',
      jiazumingcheng:"", 
@@ -17,7 +19,7 @@ Page({
      shenqingrendianhua:"",
     
     biaozhunku:[],
-   
+    
     listhang:{},
     listxuhao:0,
     // peiouku:{},
@@ -30,13 +32,14 @@ Page({
      {tb:true,lei:"",name:"name",tishi:"姓名",titils:"最少2个字",num:false,bianji:true},
      {tb:true,lei:"",name:"xingbie",tishi:"性别",titils:"男 或 女",num:false,bianji:true},
      {tb:true,lei:"",name:"chusheng",tishi:"出生日期",titils:"年月日（字符型YYYY MM DD）",num:true,bianji:true},
-     {tb:true,lei:"",name:"yimin",tishi:"移民属性",titils:"移民 或不填",num:false,bianji:true},
+    
      {tb:true,lei:"",name:"dizhi",tishi:"居住市县",titils:"省、市、县(注意保护隐私）",num:false,bianji:true},
+     {tb:true,lei:"",name:"yimin",tishi:"是否死亡",titils:"是 或不填",num:false,bianji:true},
      {tb:true,lei:"",name:"siwang",tishi:"死亡日期",titils:"年月日（字符型YYYY MM DD）健在者不要填写",num:true,bianji:true},
      {tb:true,lei:"",name:"dianhua",tishi:"电话",titils:"11位手机号，慎重填写，可以不填写",num:true,bianji:true},
-     {tb:false,lei:"fuqin",name:"id",tishi:"父亲编码",titils:"父亲、母亲、配偶、子女编码可以在修改中加入",num:false,bianji:true},
+     {tb:false,lei:"fuqin",name:"id",tishi:"父亲编码",titils:"编码可以在修改中加入，只有先输入姓名才可长按取码",num:false,bianji:true},
      {tb:true,lei:"fuqin",name:"name",tishi:"父亲姓名",titils:"最少两字，可以不填",num:false,bianji:true},
-     {tb:false,lei:"muqin",name:"id",tishi:"母亲编码",titils:"父亲、母亲、子女编码，待后续修改连接",num:false,bianji:true},
+     {tb:false,lei:"muqin",name:"id",tishi:"母亲编码",titils:"编码可以在修改中加入，只有先输入姓名才可长按取码",num:false,bianji:true},
      {tb:true,lei:"muqin",name:"name",tishi:"母亲姓名",titils:"最少两字，可以不填",num:false,bianji:true},
      {tb:false,lei:"peio",name:"id",tishi:"配偶编码",titils:"可以不填，可以多个",num:false,bianji:true},
      {tb:true,lei:"peio",name:"name",tishi:"配偶姓名",titils:"可以不填，可以多个",num:false,bianji:true},
@@ -44,28 +47,46 @@ Page({
      {tb:true,lei:"zinv",name:"name",tishi:"子女姓名",titils:"可以不填，可以多个",num:false,bianji:true},
      {tb:true,lei:"zinv",name:"guanxi",tishi:"子女关系",titils:"可以不填，可以多个",num:false,bianji:true},
      {tb:true,lei:"",name:"tbname",tishi:"备注",titils:"填报人或其他备注信息",num:false,bianji:true},
-     {tb:true,lei:"",name:"tbtime",tishi:"时间及昵称",titils:"最后数据更新时间",num:false,bianji:false},
+     {tb:true,lei:"",name:"tbtime",tishi:"时间及昵称",titils:"最早录入的时间+微信昵称",num:false,bianji:false},
      ],
 
-     list:[ 
-     
-  ]
+     list:[ ],
+      tujinbenyefangshi:"",
+      tuziid:"",
+      tuname:"",
+      tufuqinid:"",
+      tufuqinname:""
 
   },
 
   onLoad: function (options) {
-    // console.log(1234567890)
-    // console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,"2020110100准备进入了databaseguide", app.globalData.openid,this.data.openid)
+    var that=this
+    console.log(options,"20201213" ,options.name)
+   if(options.name=="undefined"){
+     //直接进入
+   }else{
+     //家谱图进入
+     that.data.tujinbenyefangshi="tu"
+     that.data.tuziid=options.id
+     that.data.tuname=options.name
+     that.data.tufuqinid=options.fuqinid
+     that.data.tufuqinname=options.fuqinname
+    //  console.log(that.data.tujinbenyefangshi,that.data.tuziid ,that.data.tuname,that.data.tufuqinid,that.data.tufuqinname,999)
+
+     //家谱图进入OK
+   }
+
     if (app.globalData.openid) {
-      this.setData({
+      that.setData({
         openid: app.globalData.openid,
         jiazumingcheng:app.globalData.jiazumingcheng,
         jiazushenqingren:app.globalData.jiazushenqingren,
-        shenqingrendianhua:app.globalData.shenqingrendianhua
+        shenqingrendianhua:app.globalData.shenqingrendianhua,
+        jiazushenqingrenid:app.globalData.jiazushenqingrenid
       }) 
     }
     //联调前删除以下备注，禁止未获取身份或未指定家族进入
-    if(this.data.openid.length==0 || this.data.jiazumingcheng.length==0) {
+    if(that.data.openid.length==0 || that.data.jiazumingcheng.length==0) {
       wx.showModal({
         showCancel:false,
         title:"提示",
@@ -87,24 +108,58 @@ Page({
       env: 'liuxiaoyunyun-wsc3r'
    })
    const _ = testDB.command
-    testDB.collection('jiazurenyuan').where({
-    mingcheng:this.data.jiazumingcheng
-  })
-  .get({
-     success:res=> {
-     
-        this.setData({
-        list:res.data 
-        })
-        
-       //首次建立标准项目库
-       this.biaozhunku()
-       if(this.data.list.length>=1) { this.chaxunshujudaoru(0) }
-     },
-     fail:err=>{
-     
-     }
-  })
+   console.log(that.data.tujinbenyefangshi,that.data.tuziid,10101)
+   if ( that.data.tujinbenyefangshi=="tu" ){//家谱图进入
+   
+          testDB.collection('jiazurenyuan').where({
+            mingcheng:that.data.jiazumingcheng,
+            name:that.data.tuname
+          })
+          .get({
+            success:res=> {
+              that.setData({
+                list:res.data 
+                })
+              //首次建立标准项目库
+              that.biaozhunku()
+
+              if(that.data.list.length>1){
+                 that.chaxunshujudaoru(0) 
+                } else if(that.data.list.length==1){
+                   
+                  that.chaxunshujudaoru(0) 
+                  that.setData({ fangfa:"xiugai"})
+                 that.fangfa("xiugai")
+                 } else{
+                  
+                   that.setData({ fangfa:"zengjia"})
+                 
+                  that.fangfa("zengjia")
+                  
+                 }
+            },
+            fail:err=>{ }
+          })
+        }else{//直接进入
+          testDB.collection('jiazurenyuan').where({
+            mingcheng:that.data.jiazumingcheng
+          })
+          .get({
+            success:res=> {
+              that.setData({
+                list:res.data 
+                })
+              //首次建立标准项目库
+              that.biaozhunku()
+              if(that.data.list.length>=1) { that.chaxunshujudaoru(0) }
+            },
+            fail:err=>{ }
+          })
+
+        }
+
+
+
 //   //首次建立标准项目库
 //  this.biaozhunku()
   
@@ -120,34 +175,28 @@ Page({
 for(var i=0;i<ls.length;i++){
  if(ls[i].name == ids){
 
-   wx.showModal({
-     
-     confirmText: '确定',
-     title: ls[i].tishi,
-     content: ls[i].titils,
-     showCancel: false,
-     success(res){
-     
-     }
-     
+   wx.showToast({
+     title: ls[i].tishi+":"+ls[i].titils,
+     icon:"none"
    })
+  
    break
  }
 }
 
 },
-fangfa:function(e){
+fangfa:function(e ){
+  // console.log("options=",options)
   // 增加 修改 查询之间切换
   var that=this
-  // console.log(e)
+//  console.log(options,"222",mubiao,options.target.id)
+//  console.log("di 2 ci daican zengjia")
   var mubiao=e.target.id
-  var fangfa=that.data.fangfa
+  var fangfa=that.data.fangfa 
   var mubiaotishi=""
+  if (mubiao==""){     return}
   if(fangfa!=mubiao){
-    // var fangfatishi,mubiaotishi=""
-    // if(fangfa=="zengjia"){fangfatishi="增加" }
-    // if(fangfa=="xiugai"){fangfatishi="修改" }
-    // if(fangfa=="chaxun"){fangfatishi="查询" }
+    
     if(mubiao=="zengjia"){mubiaotishi="增加" }
     if(mubiao=="xiugai"){mubiaotishi="修改" }
     if(mubiao=="chaxun"){
@@ -159,68 +208,44 @@ fangfa:function(e){
 
             })
             if(mubiao=="zengjia"){
-             wx.showModal({
-               title:"增加数据",
-               content:"借鉴他人数据，编码可能不对！",
-               cancelText:"一键清零",
-               confirmText:"借鉴数据",
-               success (res) {
-               if (res.confirm) {
-               
-               } else{
-                 //一键清零自己填报
-                for (var i=0;i<that.data.biaozhunku.length;i++){
-                  that.data.biaozhunku[i].zhi="" 
-                }
-                that.setData({
-                  biaozhunku:that.data.biaozhunku
-                })
+           
+                              //一键清零自己填报
+                              for (var i=0;i<that.data.biaozhunku.length;i++){
+                                
+                                that.data.biaozhunku[i].zhi="" 
+                                // if (that.data.tujinbenyefangshi=="tu" && that.data.list.length==0){
+                                //   console.log("zheli xinzeng")
+                                //  if(that.data.biaozhunku[i].name=="name" && that.data.biaozhunku[i].lei==""){
+                                //   that.data.biaozhunku[i].zhi=that.data.tuname
+                                //  }
+                                
+                                //  if(that.data.biaozhunku[i].name=="id" && that.data.biaozhunku[i].lei=="fuqin"){
+                                //   that.data.biaozhunku[i].zhi=that.data.tufuqinid
+                                //   }
+                                //  if(that.data.biaozhunku[i].name=="name" && that.data.biaozhunku[i].lei=="fuqin"){
+                                //   that.data.biaozhunku[i].zhi=that.data.tufuqinname 
+                                //   that.data.tujinbenyefangshi=""//第二次不能带参,且id在前
+                                //  }
+
+                                // }//因不能首次
+                              }
+                              that.data.biaozhunku[1].zhi=this.data.openid
+                              
+                              that.data.biaozhunku[2].zhi=this.data.jiazumingcheng
+                              that.setData({
+                                biaozhunku:that.data.biaozhunku
+                              })
               
-               }
-              }
-             })
-              
+       
 
             }
              
 
-            // if(mubiao!="chaxun")  {   
-            //   wx.showToast({
-            //     title: '数据不变，跳转到：' +mubiaotishi,
-            //     icon:"none",
-            //     duration:1000 
-            //     })
-            //   }  
-  //  wx.showModal({
-  //    cancelColor: 'cancelColor',
-  //    title:"改变数据操作方式请慎重",
-  //    cancelText:"不变更了",
-  //    content:fangfatishi+" 变更为=> "+mubiaotishi+"?",
-     
-  //    success(res){
-  //     if(res.confirm){ 
-  //       that.setData({
-  //         fangfa:mubiao
-  //       }) }
-  //       if(res.cancel){ 
-  //         that.setData({
-  //           fangfa:fangfa
-  //         }) }  
-  //    }
-  //  })
+           
     }
 },
 
-xianshibianma:function(e){
- //显示编码切换
-this.setData({
-  xianshibianma:!this.data.xianshibianma,
-  biaozhunku:this.data.biaozhunku
-}) 
-   
- 
-  
- },
+
 
  biaozhunku:function(){
 //建立标准库 
@@ -655,8 +680,8 @@ var biaozhunku=this.data.biaozhunku
           }
         break; 
         case "_openid":
-          if (fangfa=="xiugai" &&  zhi!=this.data.openid){
-          cuowutishi=i+"：不是本人创建的数据不能修改"
+          if (fangfa=="xiugai" &&  !(zhi==this.data.openid || this.data.openid==this.data.jiazushenqingrenid)){
+          cuowutishi=i+"：不是本人创建的数据不能修改"//允许管理员修改数据
           }
           if (fangfa=="zengjia" ){
             biaozhunku[i].zhi=this.data.openid
@@ -695,13 +720,13 @@ var biaozhunku=this.data.biaozhunku
           }
           break; 
           case "yimin":
-            if (!( zhi=="移民"|| zhi== "")){
-            cuowutishi=i+"：移民 或不填"
+            if (!( zhi=="是"|| zhi== "")){
+            cuowutishi=i+"：是否死亡：是 或不填"
             }
             break;
             case "dizhi":
               if ( zhi.length>8){
-              cuowutishi=i+"：字数限制8个"
+              cuowutishi=i+"：字数限制9个"
               }
               break;
               case "siwang":
@@ -918,8 +943,8 @@ baocunshujuxiugai:function(e){
  var listxuhao=that.data.listxuhao
  var listhang=that.data.list[listxuhao]
  var xiugai=[]
- 
-    if(biaozhunku[1].zhi!=that.data.openid){//多余
+ console.log(e,that.data.openid,that.data.jiazushenqingrenid)
+    if(!(biaozhunku[1].zhi==that.data.openid || that.data.openid==that.data.jiazushenqingrenid ) ){//允许管理员修改数据
       wx.showToast({
         icon:"none",
         title: '无权修改他人录入的数据',
@@ -1044,47 +1069,81 @@ var li=0
      }
 
    
-
+// 管理员修改的数据不能真正修改，请使用云函数
     var id=biaozhunku[0].zhi 
     const db=wx.cloud.database({
       env: 'liuxiaoyunyun-wsc3r'
    })
-
-    db.collection('jiazurenyuan').doc(id).update({
-      data:{
-             // mingcheng:that.chaxunziduanzhi("","mingcheng"),
-                name:that.chaxunziduanzhi("","name"),
-                xingbie:that.chaxunziduanzhi("","xingbie"),
-                chusheng:that.chaxunziduanzhi("","chusheng"),
-                yimin:that.chaxunziduanzhi("","yimin"),
-                dizhi:that.chaxunziduanzhi("","dizhi"),
-                siwang:that.chaxunziduanzhi("","siwang"),
-                dianhua:that.chaxunziduanzhi("","dianhua"),
-                fuqin:that.chaxunziduanzhi("fuqin",""),
-                muqin:that.chaxunziduanzhi("muqin",""),
-                peio:that.chaxunziduanzhi("peio",""),
-                zinv:that.chaxunziduanzhi("zinv",""),
-                tbname:that.chaxunziduanzhi("","tbname"),
-                tbtime:that.chaxunziduanzhi("","tbtime"),
-      },
-      success: res=> {
-        wx.showToast({
+console.log(12345)
+   wx.cloud. callFunction ({
+     name:"baocunxiugai001",
+     data:{
+      id:id,
+      name:that.chaxunziduanzhi("","name"),
+      xingbie:that.chaxunziduanzhi("","xingbie"),
+      chusheng:that.chaxunziduanzhi("","chusheng"),
+      yimin:that.chaxunziduanzhi("","yimin"), 
+      dizhi:that.chaxunziduanzhi("","dizhi"),
+      siwang:that.chaxunziduanzhi("","siwang"),
+      dianhua:that.chaxunziduanzhi("","dianhua"),
+      fuqin:that.chaxunziduanzhi("fuqin",""),
+      muqin:that.chaxunziduanzhi("muqin",""),
+      peio:that.chaxunziduanzhi("peio",""),
+      zinv:that.chaxunziduanzhi("zinv",""),
+      tbname:that.chaxunziduanzhi("","tbname"),
+      // tbtime:that.chaxunziduanzhi("","tbtime"),不能修改时间和昵称
+     }
+   })
+         wx.showToast({
           icon:"none",
-          title: '保存成功',
-    })
-      },
-      fail:err=>{
-        wx.showToast({
-          icon:"none",
-          title: '错误信息:'+err,
-    })
-        //  console.log(err,2)
+           title: '保存成功',
+     })
+  //  console.log(123456)
+  //  .then(res=>{  
+    
+  //      console.log(1,res,"保存成功！") 
+      
+      
+  //  })
+  //  .catch(err=>{
+  //   // console.log(e,app.globalData.jiazumingcheng,2)
+  //   //   console.error
+  //  })
+    // db.collection('jiazurenyuan').doc(id).update({
+    //   data:{
+    //          // mingcheng:that.chaxunziduanzhi("","mingcheng"),
+    //             name:that.chaxunziduanzhi("","name"),
+    //             xingbie:that.chaxunziduanzhi("","xingbie"),
+    //             chusheng:that.chaxunziduanzhi("","chusheng"),
+    //             yimin:that.chaxunziduanzhi("","yimin"),
+    //             dizhi:that.chaxunziduanzhi("","dizhi"),
+    //             siwang:that.chaxunziduanzhi("","siwang"),
+    //             dianhua:that.chaxunziduanzhi("","dianhua"),
+    //             fuqin:that.chaxunziduanzhi("fuqin",""),
+    //             muqin:that.chaxunziduanzhi("muqin",""),
+    //             peio:that.chaxunziduanzhi("peio",""),
+    //             zinv:that.chaxunziduanzhi("zinv",""),
+    //             tbname:that.chaxunziduanzhi("","tbname"),
+    //             tbtime:that.chaxunziduanzhi("","tbtime"),
+    //   },
+    //   success: res=> {
+    //     wx.showToast({
+    //       icon:"none",
+    //       title: '保存成功',
+    // })
+    //   },
+    //   fail:err=>{
+    //     wx.showToast({
+    //       icon:"none",
+    //       title: '错误信息:'+err,
+    // })
+    //     //  console.log(err,2)
         
         
-      }
-    })
+    //   }
+    // })
     
-    
+    //晕函数保存替代部分 OK
  
    
 
@@ -1257,7 +1316,13 @@ switch (id ){
 },
 zhidingxingming:function(e){
  // 查询指定姓名字段
-  var   name=e.detail.value
+  var   name=""
+  // if ( this.data.tujinbenyefangshi!="tu"){
+  name=e.detail.value
+  // }else{
+  //   name=tuname
+  // }
+
   var that=this
   
   const testDB = wx.cloud.database({

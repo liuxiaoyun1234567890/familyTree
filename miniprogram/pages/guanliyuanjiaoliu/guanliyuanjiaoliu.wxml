@@ -13,7 +13,7 @@
      </view>
   <view wx:for="{{jiazumingchengku}}" wx:for-index="index" wx:for-item="xiang" wx:key="_id" >
     <block >
-      <view class="zu ">
+      <view class="zu "> 
         <view  class="hang hang2"   >序    号： {{yehao*pagejilu+index+1}} </view>
         <view  class="hang" > 家族名称： {{xiang["mingcheng"]}}</view>
         <view class="hang hang2">目前人数：{{xiang["renshu"]}}</view> 
@@ -23,6 +23,11 @@
         <view class="hang">创建者电话：{{xiang["dianhua"]}}</view> 
         <view class="hang">创建时间：{{xiang["time"]}}</view> 
       </view>
+       <view wx:if="{{openid==xitongguanliyuan}}" >  
+         <text style="color:blue">刘晓云: 可以删除这个家族(且仅删除名称不能删除已录入数据)，目的便于管理控制家族数量、删除不规范名称、更换管理员</text> 
+         <text style="color:green" bindtap="shanchujiazu"  id="{{xiang._id}}" data-renshu="{{xiang.renshu}}" data-mingcheng="{{xiang.mingcheng}}" data-xu="{{index}}"> 确认删除 </text>
+
+       </view>
     </block>
 
 

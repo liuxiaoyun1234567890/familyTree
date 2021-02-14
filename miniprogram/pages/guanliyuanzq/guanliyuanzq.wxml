@@ -8,22 +8,32 @@
       <view class="hangview"  >
           <view class="xuhao">  序号 </view>
           <view class="xingbie"> 性别</view> 
-          <view class="yimin"> 移民属性</view>  
+          <view class="yimin"> 是否死亡</view>  
           <view class="renshu">人数</view>   
        </view>
     <view wx:for="{{list01}}"  wx:for-index="index" wx:for-item="xiang"  >
-      <view class="hangview"  >
+      <view class="hangview"  id="{{index}}" data-biao="01" bindtap="fenxiang"  >
           <view class="xuhao">  {{index+1}} </view>
           <view class="xingbie">  {{ xiang._id.xingbie}}</view> 
           <view class="yimin"> {{ xiang._id.yimin}}</view> 
-          <view class="renshu">{{xiang.sum}}</view>   
-       </view>
-      
+          <view class="renshu">{{xiang.sum}}</view>  
+        </view>
+
+       
     </view>
 </view>
 </block>
 
 <block>
+   <view  class="mingxi"  wx:if="{{fenxiangbiao=='01'}}"> 
+      <view>{{fenxiangxu+1}}行前20名姓名  </view>
+      <!-- && fenxiangxu==index -->
+        <block  wx:for="{{listmingxi}}" wx:for-index="mingxu" wx:for-item="mingxiang" >
+        <text> {{mingxiang.name}}{{mingxu+1==listmingxi.length?".":"," }} </text> 
+        </block>
+       
+    </view> 
+
 <view  class="biaoming">
   <text bindtap="biao"  id="02" > 二、录入人员(openid)表 </text>
 </view>
@@ -35,7 +45,7 @@
           
        </view>
     <view wx:for="{{list02}}"  wx:for-index="index" wx:for-item="xiang"  >
-      <view class="hangview"  >
+      <view class="hangview"  id="{{index}}" data-biao="02" bindtap="fenxiang"   >
           <view class="xuhao2">  {{index+1}} </view>
           <view class="openid"> {{ xiang._id}}</view> 
           <view class="renci2">{{xiang.count}}</view>   
@@ -43,7 +53,18 @@
       
     </view>
 </view>
+
 </block>
+
+    <view  class="mingxi"  wx:if="{{fenxiangbiao=='02'}}"> 
+      <view>{{fenxiangxu+1}}行前20名姓名  </view>
+      <!-- && fenxiangxu==index -->
+        <block  wx:for="{{listmingxi}}" wx:for-index="mingxu" wx:for-item="mingxiang" >
+        <text> {{mingxiang.name}}{{mingxu+1==listmingxi.length?".":"," }} </text> 
+        </block>
+       
+    </view> 
+
 
 
 

@@ -30,7 +30,7 @@ Page({
     })
      }
       wx.setNavigationBarTitle({
-      title: this.data.jiazumingcheng+ '管理员专区' 
+      title: this.data.jiazumingcheng+ '_全族数据' 
     })
     var jiazutotal=0
     var totalpage=0
@@ -140,9 +140,9 @@ Page({
       env:'liuxiaoyunyun-wsc3r'
     })
     // console.log(this.data.jiazumingcheng,yeshu,this.data.pagejilu)
-    testDB.collection("jiazurenyuan").orderBy('chusheng', 'asc')
+    testDB.collection("jiazurenyuan")//.orderBy('chusheng', 'asc')
     .where({mingcheng:this.data.jiazumingcheng})
-    // .sort ( name ) desc
+    .orderBy('name', 'asc')
     .skip(yeshu*this.data.pagejilu)
     .limit(this.data.pagejilu)
     .get()
@@ -187,7 +187,7 @@ Page({
              }
              if ( renyuanlist[hs].tbtime!="" ){   ls=ls+"\r\n"+renyuanlist[hs].tbtime}
              if(this.data.openid==renyuanlist[hs]._openid){
-               ls=ls+"(我的数据)"
+               ls=ls+"(我)"
              }
             
 
@@ -211,5 +211,15 @@ Page({
       
     
     //调取 家族指定名称页数内的数据
-    } 
+    } ,
+    shenqinghuanren:function (e) {
+      // console.log(e)
+      var id=e.target.id
+      var bianma =e.target.dataset.bianma
+      var name=e.target.dataset.name
+      var yuanopenid=e.target.dataset.yuanopenid
+      wx.navigateTo({
+        url: '/pages/huanren/huanren?id=' + id + "&bianma=" + bianma+ "&name=" + name+ "&yuanopenid=" + yuanopenid
+       });
+    }
 })

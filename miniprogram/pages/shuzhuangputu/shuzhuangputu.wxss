@@ -1,0 +1,8 @@
+/* pages/shuzhuangputu/shuzhuangputu.wxss */
+.liuarea{
+  /* width:2000rpx;
+  height: 3000rpx; */
+   background-color: rgb(243, 238, 237);     
+   
+  
+}

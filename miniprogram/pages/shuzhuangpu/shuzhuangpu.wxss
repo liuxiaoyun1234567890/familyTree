@@ -3,11 +3,32 @@
   display: flex;
   flex-direction: row;
   }
+  .duohang{
+    display: flex;
+  flex-direction: column;
+  }
+  .hangkuan{
+    margin-top: 5rpx ;
+    display: flex;
+    flex-direction: row;
+    width:2000rpx;
+    border: solid 1rpx green;
+    border-bottom: none ;
+  }
+  .liekuan{
+    margin: 0rpx ;
+    width:120rpx;
+    color: blueviolet;
+    size:30rpx;
+    display: flex;
+    /* background: burlywood; */
+  }
   .inputview {
     margin-left: 20rpx;
-    width: 50%;
+    width: 30%;
+    height:60rpx;
     background: rgb(195, 238, 110);
-    font-size:30rpx;
+    font-size:50rpx;
   }
   .chongmingview{
     margin-top: 20rpx;
@@ -19,8 +40,40 @@
     width:2000rpx;
   }
   .xiayidai{
-    margin-left: 180rpx;
+    margin-left: 10rpx;
     color: rgb(255, 0, 140);
     text-align: center;
     width: 100%;
+    font-size:50rpx;
+  }
+  .qidianviewsm{
+    margin-top: 50rpx;
+  }
+  .liuarea{
+    width:2000rpx;
+    height: 3000rpx;
+     background-color: rgb(243, 238, 237); 
+    
+  }
+  .daicolor0{
+    color:blueviolet
+  }
+  .daicolor1{
+    color:red
+  }
+  .daicolor2{
+    color:green
+  }
+  .yuanjia{
+    margin-left: 50rpx;
+    margin-top: 50rpx;
+  }
+  .siwangkuang{
+    
+    /* border: solid 1px black; 
+    border-radius: 5px;  */
+
+  }
+  .nvzirupu{
+    margin-left: 30rpx;
   }

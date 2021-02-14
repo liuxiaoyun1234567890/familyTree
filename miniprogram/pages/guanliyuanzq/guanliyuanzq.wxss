@@ -45,3 +45,9 @@
  justify-content: center;
  width: 20%;
 }
+.mingxi{
+  margin-top: 30rpx;
+  width: 90%;
+  margin-left: 5%;
+  /* color:blue; */
+}

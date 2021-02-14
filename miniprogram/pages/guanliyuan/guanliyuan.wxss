@@ -6,6 +6,14 @@ margin-top: 40rpx;
 display: flex;
 flex-direction:row ;
 }
+.zusq{
+   background: aquamarine; 
+  margin: 10rpx;
+  margin-top: 10rpx;
+  margin-left: 150rpx;
+  size: 20rpx;
+  
+  }
 .hang{
   /* border:  1px rgb(158, 120, 120) solid; */
   margin-top: 20rpx;

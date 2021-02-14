@@ -1,0 +1,15 @@
+/* pages/quanxianshezhi/quanxianshezhi.wxss */
+.shenqingbiankuang{
+  margin-top: 50rpx;
+  width: 85%;
+  margin-left: 5%;
+  border: brown solid 1rpx;
+}
+.mimainput{
+  background:rgb(219, 240, 240);
+   width: 200rpx;  
+}
+.mimahang{ 
+  display: flex;
+  flex-direction: row;
+}

@@ -6,6 +6,7 @@ Page({
    */
   
   data: {
+    xitongguanliyuan:'oF85t5a4erKVv0JB3CnvujSN6WJw',//刘晓云微信号
     openid:"",
     yehao:0,
    jiazutotal:0,
@@ -124,7 +125,7 @@ testDB.collection('jiazumingcheng').count().then(res => {
 
 
 
-console.log("res" ,1234)
+// console.log("res" ,1234)
 var  jiazumingchengku=[]
 var renyuanhuizonglist=[]
 const testDB=wx.cloud.database({
@@ -203,6 +204,40 @@ const db=wx.cloud.database()
 
       this.diaoquyeshusuju(yehao)
     //选择页号OK
+  },
+  shanchujiazu:function(e){
+ var that=this
+  var id=e.currentTarget.id
+  var mingcheng=e.currentTarget.dataset.mingcheng
+  var renshu=e.currentTarget.dataset.renshu
+     if (renshu==undefined) {renshu=0}
+  var xu=e.currentTarget.dataset.xu
+  var xitongguanliyuan= that.data.xitongguanliyuan//刘晓云微信号
+  if (that.data.openid!=xitongguanliyuan){  return}
+   wx.showModal({
+     title:"删除家族！！",
+     content:mingcheng+"已录入人数："+renshu,
+     cancelColor: 'cancelColor', 
+     success(res){
+       if(res.confirm){
+        wx.cloud.callFunction({ 
+          name:"shanchujiazumingcheng", 
+          data:{
+          _id:id
+          }
+          })
+          // console.log(id)
+          that.data.jiazumingchengku.splice(xu,1) 
+          that.setData({
+            jiazumingchengku:that.data.jiazumingchengku
+          })
+
+       }
+     }
+   })
+
+
+
   }
 
 

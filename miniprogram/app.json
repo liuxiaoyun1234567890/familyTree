@@ -1,6 +1,6 @@
 {
   "pages": [
-   "pages/shuzhuangpu/shuzhuangpu",
+   
     "pages/index/index",
     "pages/shenqingjiazu/shenqingjiazu",
     "pages/userConsole/userConsole",
@@ -12,8 +12,13 @@
     "pages/guanliyuan/guanliyuan",
     "pages/guanliyuanzq/guanliyuanzq",
     "pages/guanliwo/guanliwo",
-   
-    "pages/guanliyuanjiaoliu/guanliyuanjiaoliu"
+    "pages/huanren/huanren",
+    "pages/bangzhu/bangzhu",
+    "pages/shuzhuangpu/shuzhuangpu",
+    "pages/shuzhuangputu/shuzhuangputu",
+     "pages/guanliyuanjiaoliu/guanliyuanjiaoliu",
+     "pages/quanxianshezhi/quanxianshezhi",
+     "pages/daochuexcel/daochuexcel"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

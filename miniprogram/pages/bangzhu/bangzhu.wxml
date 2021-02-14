@@ -1,0 +1,9 @@
+<!--pages/bangzhu/bangzhu.wxml-->
+ <view calss="shouming"  >
+    <view class="biaoti"> 家族小程序\r\n</view>
+    <canvas   canvas-id="mycanvas"  class="mycanvas1">  </canvas>
+ <text bindtap="xuantiao" id="-" class="shouming" style="color:green"  >\r\n\r\n 查看：上条说明</text>
+ 现在第{{step+1}}条/共{{list.length}}条
+<text bindtap="xuantiao" id="+" class="shouming" style="color:green"  > 下一条说明</text>
+  
+  </view>

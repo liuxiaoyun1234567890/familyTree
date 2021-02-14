@@ -1,9 +1,9 @@
 /* pages/shenqingjiazu.wxss */
 .jiazumingview{
   margin-left: 50rpx;
-  display: flex;
+  display: flex; 
   flex-direction: row;
-  margin-top: 50rpx;
+  margin-top: 20rpx;
 
 }
 .minginput{
@@ -22,4 +22,10 @@
 }
 .zhuce{
   margin-top: 100rpx;
+}
+.shenqingbiankuang{
+  margin-top: 50rpx;
+  width: 85%;
+  margin-left: 5%;
+  border: brown solid 4rpx;
 }

@@ -1,0 +1,24 @@
+{
+  "name": "miniprogram-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "miniprogram-sm-crypto": "^0.2.1",
+    "node-xlsx": "^0.16.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuxiaoyun1234567890/familyTree.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuxiaoyun1234567890/familyTree/issues"
+  },
+  "homepage": "https://github.com/liuxiaoyun1234567890/familyTree#readme"
+}

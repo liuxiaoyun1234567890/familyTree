@@ -5,8 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-   
-   jianchen:"碱厂",
+   lurumima:"",
+   jianchen:"",
    jiazumingcheng:"",
    jiazushenqingren:"",
    jiazushenqingrenid:"",
@@ -77,6 +77,7 @@ Page({
      this.setData({
     jiazumingcheng:ls
       })
+      // this.jiazushenqingrenblur(e)
    }
 
   },
@@ -88,8 +89,9 @@ Page({
     jiazushenqingren:ls
       })
    }
-
+  
   },
+
   jiazushenqingrenblur:function(e){
     // console.log(e)
    var ls=e.detail.value
@@ -106,17 +108,17 @@ Page({
       //
         ls=jiazumingcheng.substr(jiazumingcheng.length-1, 1)
       //  console.log(ls,"ls",jiazumingcheng)
-        if (ls!=jiazushenqingren.substr(0,1)){
-          wx.showModal({
-            showCancel:false,
-            title:"提示：",
-            content:"家族名称最后一字须等于姓名的首字符，即申请人须为直系家族人士",
-            confirmText:'同意修改',
+        // if (ls!=jiazushenqingren.substr(0,1)){
+        //   wx.showModal({
+        //     showCancel:false,
+        //     title:"提示：",
+        //     content:"家族名称最后一字须等于姓名的首字符，即申请人须为直系家族人士",
+        //     confirmText:'同意修改',
             
             
-          })
+        //   })
           
-        }
+        // }
 
       }
    }
@@ -156,7 +158,7 @@ Page({
   var mingcheng=this.data.jiazumingcheng
   var chuangjianzhe=this.data.jiazushenqingren
   var dianhua=this.data.shenqingrendianhua
-  console.log(mingcheng,chuangjianzhe,dianhua,"liu")
+  // console.log(mingcheng,chuangjianzhe,dianhua,"liu")
 
   if(mingcheng.length==0 ){
     wx.showModal({
@@ -173,13 +175,13 @@ Page({
       confirmText:"申请失败",
     }) 
 
-  } else if( chuangjianzhe.substr(0,1)!=mingcheng.substr(mingcheng.length-1,1)){
-    wx.showModal({
-      showCancel:false,
-      title:"提示:",
-      content:"家族名称最后一字须等于姓名的首字符，即申请人须为直系家族人士",
-      confirmText:'申请失败',
-      })
+  // }  else if( chuangjianzhe.substr(0,1)!=mingcheng.substr(mingcheng.length-1,1)){
+  //   wx.showModal({
+  //     showCancel:false,
+  //     title:"提示:",
+  //     content:"家族名称最后一字须等于姓名的首字符，即申请人须为直系家族人士",
+  //     confirmText:'申请失败',
+  //     })
 
   }else if(!(dianhua.length==0 || dianhua.length==11)){
     wx.showModal({
@@ -254,12 +256,11 @@ Page({
             // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
             // console.log(res, "申请注册成功")
             
-            wx.showModal({
-              showCancel:false,
-              title: '申请注册成功',
-              duration:5000
-            })
-            this.data.list.push(
+           wx.showToast({
+             title: '成功！第1条就是您注册的',
+             icon:"none"
+           })
+            this.data.list.unshift(
               {"mingcheng":mingcheng,
               "chuangjianzhe":chuangjianzhe,
               "dianhua":dianhua,
@@ -273,7 +274,7 @@ Page({
           fail: err => { 
             wx.showModal({
               showCancel:false,
-              title: '失败：已核准增加，但未知原因未能成功',
+              title: '已核准增加，但未知原因未能成功',
               duration:5000
             })
            
@@ -300,6 +301,7 @@ Page({
  this.setData({
    jianchen:e.detail.value
  })
+ this.chaxun(e)
   },
   chaxun:function(e){
     // console.log(this.data.jianchen)
@@ -326,24 +328,25 @@ Page({
   },
   xuandingjiazu:function(e){
    
-    var id=e.target.id
+    var id=e.currentTarget.id
     var that=this
-   
+    if (that.data.list[id].mima!=that.data.lurumima & that.data.list[id].mimazhi==true ){
+      console.log(that.data.list,id,that.data.list[id].mima,that.data.lurumima,that.data.list[id].mimazhi)
+
+      wx.showToast({
+        title: '密码错禁入！联系电话：'+that.data.list[id].chuangjianzhe+that.data.list[id].dianhua,
+        icon:"none",
+        duration:3000
+      })
+      return  
+    }
+
     getApp().globalData.jiazumingcheng=that.data.list[id].mingcheng,
     getApp().globalData.jiazushenqingren=that.data.list[id].chuangjianzhe,
-    // console.log(that.data.list)
+    // 
     getApp().globalData.jiazushenqingrenid=that.data.list[id]._openid,
     getApp().globalData.shenqingrendianhua=that.data.list[id].dianhua
 
-    wx.showModal({
-     
-      title:"选定家族名称："+getApp().globalData.jiazumingcheng,
-      content:"创建者："+getApp().globalData.jiazushenqingren+" "+getApp().globalData.shenqingrendianhua,
-      confirmText:'确定',
-      cancelText:'继续选定',
-
-      success(res){
-        if(res.confirm){
           wx.redirectTo({
             url: '../index/index'
           })
@@ -364,13 +367,23 @@ Page({
             })
           
         //待跳转
-        } else if(res.cancel){
+      //   } else if(res.cancel){//
 
-        }
-      }
-        })
+      //   }//
+      // }//
+      //   })//
      
     
-  }
+  },
+  lurumimainput:function(e){
+    // console.log(e)
+   var ls=e.detail.value
+   if ( ls.length!=0 ){
+     this.setData({
+    lurumima:ls
+      })
+   }
+  
+  },
  
 })

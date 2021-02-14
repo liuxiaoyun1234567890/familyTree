@@ -1,0 +1,19 @@
+<!--pages/daochuexcel/daochuexcel.wxml-->
+<view>
+     <view style="margin-left:30rpx;">
+      <text style="color:green" bindtap="daochuexcel" >一、 将家族已录入数据转化为电子表格 </text>
+      </view> 
+      <view style="margin-left:60rpx;">
+      <text >  包含：1、序号 2、姓名 3、性别\r\n4、出生日期	5、电话	6、居住地\r\n7、是否死亡 8、死亡日期	\r\n9、父亲姓名 10、母亲姓名\r\n11、配偶姓名	12、子女姓名	\r\n13、备注14、填报日期及昵称</text>
+      </view> 
+   <view style="margin-left:30rpx;margin-top:60rpx;">
+      <text style="color:green" bindtap="daoruexcel" > 二、批量输入数据，电子表格->转为录入数据\r\n </text>
+     
+      <text >  数据规范：1、序号任意；2、姓名不得重名；3、性别，仅限男或女；4、出生日期不多于8位；5、电话，0位或11位；6、居住地，不多于9位汉字；7、是否死亡，仅限是或空；8、死亡日期，不多于8位；9-12、父亲、母亲、配偶、子女姓名，不多于5位；11、配偶，多个配偶用英文逗号分隔；12、子女，前两位为关系+不多于5位，多个子女用英文逗号分隔；13、备注，不多于50个汉字；14、填报日期及昵称，程序自动加注。\r\n电子表格的首表作为默认表,文件类型为xls.</text>
+    </view> 
+    <view wx:if="{{cuowuhao!=''}}" style="color:red;margin-top:50rpx;margin-left:30rpx;" >
+    反馈错误：{{cuowuhao}}
+    </view>
+    
+</view>
+	

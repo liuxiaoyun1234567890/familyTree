@@ -1,0 +1,5 @@
+/* pages/huanren/huanren.wxss */
+.label-2{
+  margin: 30rpx 0;
+  margin-left: 50rpx;
+}

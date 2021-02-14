@@ -10,15 +10,21 @@
      <text style="color:green"  class="hangyetext" id="2" bindtap="xuanyehao"> 后一页</text>
      <text class="hangyetext" id="3" bindtap="xuanyehao"> 尾页</text>
      </view> 
- <view  class="zu" wx:for="{{renyuanlist}}" wx:for-index="xu" wx:for-item="xiang" wx:for-key="name" >
- <view class="xu" style="color:green"> {{ yehao*pagejilu+xu+1}}_ </view>
-<view class="jianjie">  <text> {{xiang.jianjie}}</text></view>
+      <view   wx:for="{{renyuanlist}}" wx:for-index="xu" wx:for-item="xiang" wx:for-key="name" >
+          <view class="zu">
+              <view class="xu" style="color:green"> {{ yehao*pagejilu+xu+1}}_ </view>
+              <view class="jianjie">  <text> {{xiang.jianjie}}</text></view>
+          </view>
+          <view class="zusq" wx:if="{{openid!=xiang._openid}}">
 
+          <text bindtap="shenqinghuanren" style="color:red" type="primary"   data-yuanopenid="{{xiang._openid}}" data-bianma="{{xiang._id}}" data-name="{{xiang.name}}" id="{{yehao*pagejilu+xu+1}}">申请({{xiang.name}})修改权  </text>
+
+          </view> 
 
  
 
 
-</view>
+      </view>
 
 
 

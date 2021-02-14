@@ -1,0 +1,19 @@
+<!--pages/huanren/huanren.wxml-->
+
+<view class="page-section-title">申请变更修改权理由：</view>
+      <radio-group class="group" bindchange="radioChange">
+        <view class="label-2" wx:for="{{radioItems}}">
+          <radio id="{{item.name}}" value="{{item.name}}" checked="{{item.checked}}"></radio>
+          <label class="label-2-text" for="{{item.name}}"><text>{{item.name}}</text></label>
+        </view>
+      </radio-group>
+   
+      <view class="label-2" >
+        <view class="label-2" >数据序号：{{id}} </view>
+        <!-- <view class="label-2" >申请编码：{{bianma}} </view> -->
+        <view class="label-2" >数据姓名：{{name}} </view>
+        <view class="label-2" >申请原因：{{yuanyin}} </view>
+       
+      
+      </view>
+       <button  bindtap="shenqinghuanren" type="primary">确认申请修改权</button>

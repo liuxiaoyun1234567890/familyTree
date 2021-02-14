@@ -1,42 +1,69 @@
 <!--pages/shuzhuangpu/shuzhuangpu.wxml-->
 <scroll-view scroll-x="true" scroll-y="true">
-<view class="qidianview" wx:if="{{xiayidaixi==0}}"> 
-    起点姓名<input class="inputview"  type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" value="刘晓云" ></input> 
-     
- </view>
- <text  class="xiayidai"  wx:if="{{xiayidaixi!=0}}" bindtap="xiyidaishuju">调入下一代(第{{xiayidaixi}}代)数据</text>
- <view wx:if="{{jiaputotal.length>0}}" class="chongmingview"  >
-      <view> 搜索记录如下 </view>
+<view class="qidianview" wx:if="{{jiaputotal.length==0 && chayuejiapu==false}}"> <!--xiayidaixi==0 &&-->
+   <view style="margin-top:10rpx">起点姓名
+   </view>
+    <input class="inputview"  type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" value="{{jiaputotalyuan.length!=0?jiaputotalyuan[0].name:jiazushenqingren }}" ></input> 
+    <checkbox class="nvzirupu"   checked="{{nvziburupu}}"  bindtap="nvziburupu" >女儿不入谱 </checkbox>
+   </view>
+
+    <view  class="qidianviewsm" wx:if="{{jiaputotal.length==0 && chayuejiapu==false}}">  
+      <view class="yuanjia" wx:if="{{jiaputotalyuan.length>=1}}"  bindtap="shiyongyuanpu">
+    <text style="color:green"  >提示一：使用上次家谱数据,共{{jiaputotalyuan.length}}条,(查阅编辑) </text>
+  </view>
+
+  <view class="yuanjia" wx:if="{{jiaputotalyuan.length>=1}}" bindtap="shengchengzhaopian" >
+    <text style="color:green"  >提示二：{{jiaputotalyuan.length}}条数据生成手机相册中的照片。温馨提示：多次点击导致手机相册中照片过多请及时清理。 </text>
+  
+  </view>
+
+
+     <text>
+      \r\n 输入姓名后点击搜索，开始生成家谱数据 \r\n
+     1、以该姓名为起点（第1代），寻找其后代；\r\n
+     2、逐渐调入第2，3，4，...，直到最后一代。\r\n
+     3、可以查阅中间几代，无需非得到最后一代。\r\n
+     4、如果你打开的页面为转发页面，请按左上角回到主页后再来尝试。\r\n 
+     5、滑动节点过大破坏视觉结构 \r\n
+     6、点击节点进入【增加修改查询人员】页面
+     7、若节点为*号请直接进入【增加修改查询人员】页面的增加模块。
+    </text>
+     </view>
+ 
+    
+     <text  class="xiayidai"  wx:if="{{xiayidaixi!=0 && chayuejiapu==false}}" bindtap="xiayidaishujuyanshi">继续调入第{{xiayidaixi+1}}代</text> 
+     <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+ <text  style="color:green" bindtap="chayuejiapu" wx:if="{{jiaputotal.length!=0 && chayuejiapu==false}}" >开始查阅编辑家谱 </text> 
+ <view wx:if="{{jiaputotal.length>0 && chayuejiapu==false}}" class="chongmingview"  >
+       <view style="color:green" wx:if="{{xiayidaixi!=0 && chayuejiapu==false}}"> 入谱{{jiaputotal.length}}人, 搜索记录如下（请缓慢点击继续调入）: </view>
       
-          <view  wx:for="{{jiaputotal}}" wx:for-index="index" wx:for-item="xiang"  wx:for-key="index" class="chongmingview yihang"  >
-          <text  id="{{index}}"  bindtap="xuezerenyuan" >{{index+1}}：第{{xiang.daixi}}代{{xiang.name}}-{{xiang.xingbie}} </text>
-           <text wx:if="{{xiang.chusheng!=''}}"> 出生日期：{{xiang.chusheng}} </text>
-           <text wx:if="{{xiang.chusheng==''}}"> 出生日期：-------- </text>
-           <text wx:if="{{xiang.fuqin.name!=''}}"> 父亲：{{xiang.fuqin.name}}  </text>
-           <text wx:if="{{xiang.muqin.name!=''}}"> 母亲：{{xiang.muqin.name}}  </text>
-           
-           <block wx:if="{{xiang.peio.length==0}}">
-             <text> 配偶：------</text>
-           </block>
-           <block wx:if="{{xiang.peio.length!=0}}">
-             <text> 配偶：</text>
-              <text wx:for="{{xiang.peio}}" wx:for-item="peio"  wx:for-index="peioxu"  >  
-               <text wx:if="{{peioxu==0}}" > {{peio.name}}  </text>
-               <text wx:if="{{peioxu!=0}}" > ,{{peio.name}}  </text>
-              </text>
-            </block>
-
-            <block wx:if="{{xiang.zinv.length!=0}}">
-             <text> 子女：</text>
-              <text wx:for="{{xiang.zinv}}" wx:for-item="zinv"  wx:for-index="zinvxu"  >  
-               <text wx:if="{{zinvxu==0}}" > {{zinv.guanxi}}{{zinv.name}}  </text>
-               <text wx:if="{{zinvxu!=0}}" > ,{{zinv.guanxi}}{{zinv.name}}  </text>
-              </text>
-            </block>
+          <block  wx:for="{{jiaputotal}}" wx:for-index="index" wx:for-item="xiang"  wx:for-key="index" class="chongmingview yihang"  >
+          <text  id="{{index}}" >{{xiang.name}},{{xiang.xingbie}}   </text>
+         
+         
 
 
-          </view> 
+          </block> 
       
  </view>
-
 </scroll-view>
+
+
+   <!-- 以下为 家 谱 树代码 -->
+   <scroll-view wx:if="{{chayuejiapu==true}}" scroll-x="true" scroll-y="true">
+   
+   <movable-area class="liuarea">
+   <!-- <canvas canvas-id="mycancas" /> -->
+   <!-- style="border:1px solid;" -->
+    
+    <!-- all、垂直vertical、XXX水平horizontal、none -->
+    <block wx:for="{{jiaputotal}}" wx:for-index="xu" wx:for-item="xiang">
+    
+    <movable-view x="{{xiang.x-zuoyizhi}}" y="{{(xiang.daixi-1)*90}}" direction="horizontal"  bindtap="tupujiediantap" class="daicolor{{xiang.sehao}}    siwangkuang" id="{{xu}}"  >{{xiang.name}}</movable-view>
+    
+    </block>
+   </movable-area>
+
+
+   </scroll-view>
+    <!-- 以上为 家 谱 树代码 -->

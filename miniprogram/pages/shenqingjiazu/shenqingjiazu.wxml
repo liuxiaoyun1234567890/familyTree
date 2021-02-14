@@ -3,17 +3,26 @@
 <view  class="jiazumingview">
 <view>
 <input type="text"  placeholder="输入名称的简短字符" class="minginput"  value="{{jianchen}}" bindinput="jiancheninput" /> </view>
-<view class="chaxun"><button bindtap="chaxun">查询</button></view>
+<view style="color:red;"> 左侧输入家族的任意字符可能出现待选家族,点击待选家族吧</view>
 </view>
 
 
 <scroll-view wx:for="{{list}}" wx:key="mingcheng"  >
-<view class="jiazumingview" style="color:blue" id="{{index}}" bindtap="xuandingjiazu" >
-{{item.mingcheng}} 创建者：{{item.chuangjianzhe}}   {{item.dianhua}}
+<view class="jiazumingview" style="color:blue" >
+  <text style="font-size:40rpx;color:green "  id="{{index}}" bindtap="xuandingjiazu"> {{item.mingcheng}} </text>
+
+ <!-- <text  style="font-size:30rpx;margin-left:20rpx; " wx:if="{{item.mimazhi!=true && item.biaomingdan!=true}}"  > {{item.chuangjianzhe}}创建,电话{{item.dianhua}}</text> -->
+ <view style="font-size:30rpx;margin-left:20rpx;color:red  " wx:if="{{item.mimazhi==true }}"> 
+   <input  class="jiazuminginput" placeholder="输入密码吧" style="width:150rpx;" bindinput="lurumimainput"></input>
+   </view>
+ <view style="font-size:30rpx;margin-left:20rpx; " wx:if="{{item.mimazhi!=true }}"> 无密码 </view>
+ <view style="font-size:30rpx;margin-left:20rpx;width:150rpx;" wx:if="{{item.baimingdan==true }}"> 白名单制 </view>
+ <view style="font-size:30rpx;margin-left:20rpx; " wx:if="{{item.baimingdan!=true }}"> — </view>
+
 </view>   
   
 </scroll-view>
-<view>
+<view class="shenqingbiankuang">
 <view  class="jiazumingview">
 申请的家族名:<input type="text" class="jiazuminginput" placeholder="例如碱厂刘" bindinput="jiazumingchenginput"   > </input>
 </view>
@@ -24,5 +33,5 @@
 申请人的电话:<input type="number" class="jiazuminginput" placeholder="输入手机号码吧" bindblur="shenqingrendianhuablur" bindinput="shenqingrendianhuainput" > </input>
 </view>
 
-<button class="zhuce" type="primary" bindtap="zhucejiazu" >申请注册</button>
+<button class="zhuce" type="primary" bindtap="zhucejiazu" >申请成立新家族</button>
 </view>

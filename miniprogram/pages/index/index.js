@@ -13,7 +13,11 @@ Page({
     jiazumingcheng:"",
     jiazushenqingren:"",
     jiazushenqingrenid:"",
-    shenqingrendianhua:""
+    shenqingrendianhua:"",
+    jizuxinxi:[],
+    mimazhi:"",
+    baimingdan:"",
+    baimingdanlist:[]
   },
 
   onLoad: function() {
@@ -28,21 +32,7 @@ Page({
       })
       return 
     }
-    // that.onGetOpenid()
-    // console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,2020110100)
-    // if (app.globalData.jiazumingcheng!=""){
-    //   that.setData({
-    // jiazumingcheng:app.globalData.jiazumingcheng,
-    // jiazushenqingren:app.globalData.jiazushenqingren,
-    // shenqingrendianhua:app.globalData.shenqingrendianhua
    
-    //    })
-    //    console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,20201101)
-    // } else{
-    //   wx.redirectTo({
-    //     url: '../shenqingjiazu/shenqingjiazu'
-    //   })
-    // }
    
     // 获取用户信息
     wx.getSetting({
@@ -62,6 +52,8 @@ Page({
         }
       }
     })
+    
+
   },
 
   onGetUserInfo: function(e) {
@@ -86,10 +78,7 @@ Page({
          openid:   app.globalData.openid 
         })
         
-        //  this.dengji()
-        // wx.navigateTo({
-        //   // url: '../userConsole/userConsole',
-        // })
+       
       },
       fail: err => {
         // console.error('[云函数] [login] 调用失败', err)
@@ -121,10 +110,7 @@ Page({
 // getSeconds()	获取秒（0-59）
 // console.log(t)
      time=t. getFullYear() +""+ (t.getMonth()+1) +""+t.getDate() +" "+t.getHours() +":"+t.getMinutes()
-    //  wx.showModal({
-    //   title: this.data.openid+"0000",
-    //   duration: 8000
-    // })
+    
      testDB.collection('userku').where({
     _openid:this.data.openid
    
@@ -179,22 +165,11 @@ Page({
           },
           
           success: res => {
-            // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-            // console.log(res, "添加xinren成功5")
             
-            // wx.showModal({
-            //   title: '2成功登记数据库title，新人',
-            //   duration:5000
-            // })
     
           },
           fail: err => { 
-            // wx.showModal({
-            //   title: '3 失败？？？？登记数据库，新人',
-            //   duration:5000
-            // })
            
-            //  console.error('[数据库] [新增记录] 失败：', err,6)
           },
         })
 
@@ -214,7 +189,7 @@ Page({
     //  我想登记一下用户信息
   },
   shenqingjiazu:function(){
-    //  console.log(app.globalData.jiazumingcheng, app.globalData.jiazushenqingren,app.globalData.shenqingrendianhua,"2020110100准备进入了SHENQINGREN", app.globalData.openid,this.data.openid)
+  
     wx.redirectTo({
       url: '../shenqingjiazu/shenqingjiazu'
     })
@@ -240,8 +215,132 @@ Page({
         url: '../shenqingjiazu/shenqingjiazu'
       })
     }
+    setTimeout(() => {  this.duqujiazuxinxi() }, 500);    //内含读取白名单
 
   },
+  duqujiazuxinxi: function () {
+    //与权限设置模块一致，读取家族信息
+    var mingcheng=this.data.jiazumingcheng
+    var that=this
+const testDB = wx.cloud.database({
+  env: 'liuxiaoyunyun-wsc3r'
+})
+const _ = testDB.command
+ testDB.collection('jiazumingcheng').where({
+mingcheng:mingcheng
+})
+.get({
+ success:res=> {
+  
+   if ( res.data.length==1){
+         that.setData({
+         jiazuxinxi:res.data ,
+         })
+          
+          that.data.mimazhi=res.data[0].mimazhi,
+          that.data.baimingdan=res.data[0].baimingdan
+
+          // if(that.data.mimazhi==underfind){that.data.mimazhi=false }
+          // if(that.data.baimingdan==underfind){that.data.baimingdan=false }
+          
+          that.setData({
+          mimazhi:that.data.mimazhi,
+          baimingdan:that.data.baimingdan
+          })
+         // console.log(that.data.jizuxinxi)
+          if (that.data.baimingdan==true){
+
+            setTimeout(() => {  that.duqubaimingdan()  }, 1000);
+              
+          }else{
+            //  that.data.baimingdanlist.splice(0,that.data.baimingdanlist.length)
+            //  that.data.baimingdanlist.push ({"shenhe":false})
+          }
+          
+     }
+     
+   },
+ 
+ fail:res=>{
+   wx.showToast({
+     title: '无法访问家族信息',
+     icon:"none"
+   })
+    
+ }
+
+})
+
+
+
+//  读取家族用户信息 OK
+},
+duqubaimingdan:function(){
+  //  wx.showToast({
+  //    title:".",// '正在调入白名单数据',
+  //    icon:"none",
+  //  })
+  //读取白名单,
+  var that=this
+  const testDB = wx.cloud.database({
+    env: 'liuxiaoyunyun-wsc3r'
+  })
+  const _ = testDB.command
+   testDB.collection('baimingdan').where({
+     mingcheng:that.data.jiazumingcheng,
+     mingdanopenid:that.data.openid
+  })
+  .get({
+   success:res=> {
+    
+     if ( res.data.length!=0){
+               that.setData({
+            baimingdanlist:res.data
+           
+            })
+       }
+     
+     },
+   
+   fail:res=>{
+     wx.showToast({
+       title: '无法访问白名单',
+       icon:"none"
+     })
+      
+   }
+  
+  })
+  // console.log(that.data.baimingdanlist,"no123")
+  //读取白名单
+  },
+  shenqingbaimingdan:function(){
+    // console.log(12134,this.data.baimingdanlist)
+    //申请白名单
+    var that=this
+    const testDB = wx.cloud.database({
+    env: 'liuxiaoyunyun-wsc3r'
+  })
+  const _ = testDB.command
+   testDB.collection('baimingdan').add({
+   data:{
+     mingcheng:that.data.jiazumingcheng,
+     mingdanopenid:that.data.openid,
+     nicheng:that.data.userInfo.nickName,
+     shenhe:false
+   },
+success:function(res) {
+  // console.log(res,0)
+  that.data.baimingdanlist.push({"mingcheng":that.data.jiazumingcheng,"mingdanopenid":that.data.openid,"shenhe":false,"nicheng":that.data.userInfo.nickName})
+   that.setData({
+     baimingdanlist:that.data.baimingdanlist
+     })
+       
+     
+     },
+  })
+ 
+  }
 
 
 

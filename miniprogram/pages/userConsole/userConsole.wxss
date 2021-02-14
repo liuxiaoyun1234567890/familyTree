@@ -1,3 +1,5 @@
 /* pages/userConsole/userConsole.wxss */
+.shenqing{
+  margin: 40rpx;
+}
 
-@import "../../style/guide.wxss";

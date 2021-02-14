@@ -11,11 +11,11 @@
       style="background-image: url({{avatarUrl}})"
       size="default"
     ></button>
-    <view class="userinfo-nickname-wrapper"   wx:if="{{openid.length==0}}">
-      <button class="userinfo-nickname" bindtap="onGetOpenid">1、点击获取 openid</button>
+    <view class="userinfo-nickname-wrapper"   wx:if="{{openid.length==0|| userInfo.nickName==underfind}}">
+      <button class="userinfo-nickname" bindtap="onGetOpenid">点击左侧图片获取授权</button>
     </view>
-    <view class="userinfo-nickname-wrapper"   wx:if="{{openid.length>1}}">
-     <text class="idsize"  >____已获取操作者身份_____ </text>
+    <view class="userinfo-nickname-wrapper"   wx:if="{{openid.length>1 && userInfo.nickName!=underfind}}">
+     <text class="idsize" style="margin-left:40rpx" >欢迎你：{{userInfo.nickName}} </text>
     </view>
   </view>
 
@@ -30,56 +30,97 @@
  
  <button class="jiazuweixuan" bindtap="shenqingjiazu" >2、请选择家族名称</button>
 </view>
-
-   \r\n操作指引\r\n
- <text>
-   1、获取openid及操作者身份
-   2、选择家族名
-   A、增加  修改  查阅人员
-   B、数据分析报告
- </text>
- 
- <view >
-    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" >
+<!-- 以下为白名单制且白名单中经过审核 -->
+<view wx:if="{{(baimingdan==true && baimingdanlist[0].shenhe==true)||baimingdan==false}}">
+  <view >
+      <navigator url="{{(userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../databaseGuide/databaseGuide'}}" open-type="navigate" >
     <button type="primary">  增加修改查询人员</button>
     </navigator>
   </view>
 
-  <view >
-    <navigator url="../guanliwo/guanliwo" open-type="navigate" >
-    <button type="small">  我的数据</button>
+  <view  >
+    <navigator url="{{( userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../guanliwo/guanliwo'}}" open-type="navigate" >
+    <button type="small">我的数据</button>
     </navigator>
   </view>
-  <view >
-    <navigator url="../xungen/xungen" open-type="navigate" >
-    <button type="small">  寻根问祖</button>
+
+  <view  >
+    <navigator url="{{( userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../guanliyuan/guanliyuan'}}" open-type="navigate" >
+    <button type="small">全族数据</button>
+    </navigator>
+  </view>
+
+  <view  >
+    <navigator url="{{( userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../xungen/xungen'}}" open-type="navigate" >
+    <button type="small">寻根问祖</button>
     </navigator>
   </view>
 
 
   <view >
-    <navigator url="../guanliyuan/guanliyuan" open-type="navigate" >
-    <button type="small">  家族数据大全</button>
+    <navigator url="{{(userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../shuzhuangpu/shuzhuangpu'}}" open-type="navigate" >
+    <button type="small">家谱图</button>
     </navigator>
   </view>
 
-  <!-- <view  wx:if="{{jiazushenqingrenid==openid }}"> -->
+  <view  >
+    <navigator url="{{( userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../userConsole/userConsole'}}" open-type="navigate" >
+    <button type="small">管理权转移的答复</button>
+    </navigator>
+  </view>
+
     <view>
-    <navigator url="../guanliyuanzq/guanliyuanzq" open-type="navigate" >
-    <button type="small">  家族分类表</button>
+    <navigator url="{{( userInfo.nickName==underfind)?'../bangzhu/bangzhu':'../guanliyuanzq/guanliyuanzq'}}" open-type="navigate" >
+    <button type="small">分类汇总表</button>
     </navigator>
   </view>
-  <view>
-    <navigator url="../shuzhuangpu/shuzhuangpu" open-type="navigate" >
-    <button type="small"> 表格家谱</button>
-    </navigator>
-  </view>
+  
+</view>
+<!-- 以上为白名单制且白名单中经过审核 -->
+<view  style="color:blue;margin:30rpx;" wx:if="{{baimingdan==true && (baimingdanlist.length==0||baimingdanlist[0].shenhe!=true)}}">
+  <text >家族权限设置：\r\n创建者有权设置操作者的权限，包括\r\n1、自主关闭家族系统\r\n2、登录采用密码或和无密码，全体密码都一样\r\n3、启用白名单和不使用白名单制\r\n启用白名单后操作员需申请\r\n创建者同意即为白名单\r\n未同意前为黑名单\r\n创建者还可以将白名单划转为黑名单</text>
+  <text  > \r\n 提示1、可能您尚未申请白名单，建议立即申请\r\n 2、或已申请但尚未同意请静候或与管理员联系</text>
+</view>
 
   <view >
     <navigator url="../guanliyuanjiaoliu/guanliyuanjiaoliu" open-type="navigate" >
     <button type="small">  管理员交流区</button>
     </navigator>
   </view>
+
+ <view wx:if="{{baimingdan}}">
+  <view style="color:green" wx:if="{{baimingdanlist.length==0 }}" bindtap="shenqingbaimingdan" >
+   我申请加入({{jiazumingcheng}})操作员的白名单中
+  </view>
+  <view wx:if="{{baimingdanlist.length==1 && baimingdanlist[0].shenhe==false }}" >
+    我：已申请白名单,但管理员未审核，只能关注交流区或说明了...
+  </view>
+ 
+
+ </view>
+
+
+
+  <view class="bangzhu">
+      <view  style="color:green"> 
+        <navigator url="../bangzhu/bangzhu" open-type="navigate" >
+            查阅一下说明
+          </navigator>
+        </view>
+
+        <view style="color:red; margin-left:20rpx;"  wx:if="{{userInfo.nickName!=underfind}}"  > 
+        <navigator url="../quanxianshezhi/quanxianshezhi" open-type="navigate" >
+            管理员权限设置
+          </navigator>
+        </view>
+        <view style="color:blue; margin-left:20rpx;"  wx:if="{{userInfo.nickName!=underfind}}"  > 
+        <navigator url="../daochuexcel/daochuexcel" open-type="navigate" >
+           数据导入导出 
+          </navigator>
+        </view>
+
+</view>
+
 
 </view>
 
@@ -94,52 +135,6 @@
 
  
   
-  <view calss="shouming"  >
-    <view class="biaoti"> <text>家族小程序简介\r\n</text></view>
-
-<text>  家族小程序（以下简称程序），依托腾讯公司微信，在微信内小程序运行（手机操作）的小程序。
-程序目的:利于青龙湖（桃林口水库）的移民及其后人建立联系、缅怀先辈、寻根问祖。\r\n
-一、程序的收藏：以好友转发的形式扩散，并可在微信内收藏。\r\n
-二、程序的受众：与青龙湖移民及其关联人员。\r\n
-   其他人员请不要参与除查询以外的数据操作，目前暂无办法限制应受众人员之外的人员操作。
-待收集数据完成后建立白名单制（仅限名单内人员操作），或黑名单制（名单内人员无法操作）。
-在数据收集期间，数据安全是有保证的，谁录入的数据谁有权修改。且数据内包含操作者的微信ID,能及时发现人员操作。\r\n
-三、家族的建立：以村(也可以用其他名称）+姓氏为家族名称，并在家族内封闭查询。\r\n
-建立家族时，登记创建者和联系电话，该创建者将有权删除家族内数据。\r\n
-四、程序的运行\r\n
-1、点击微信登记，经授权后程序获取微信ID 。\r\n
-2、选择家族，如不知道精确（汉字一音多字为主要原因）可模糊查询，输入家族名称中的连续的词，即可供操作者选择自己操作的家族。\r\n
-五、程序员主要功能：\r\n
-1、录入新增人员\r\n
-2、修改原有数据（仅限自己录入的数据）\r\n
-3、修改连接人员的系统编码（ID）\r\n
-4、查询指定人员信息和关联人员（父亲、母亲、配偶、子女）。\r\n
-5、查询家族分析报告\r\n
-六、收集数据的项目：\r\n
-1、系统必备：系统编码（ID） 、操作者身份、家族名称、时间及昵称。\r\n
-2、自身的信息：姓名、性别、出生日期、移民属性、居住市县、死亡日期、联系电话。\r\n
-3、其他关联人员：父亲、母亲、配偶、子女的姓名和ID，其中配偶、子女（子女加注关系）可多项。\r\n
-4、备注一项（仅限50字）。\r\n
-
-七、编写者：\r\n
- 作者籍贯青龙湖，负责编写、运营、管理，数据存放在微信服务器中。\r\n
-作者姓名：刘晓云\r\n
-作者籍贯：原青龙县楼子石乡碱厂村\r\n
-作者出生时间：1964年8月1日\r\n
-作者现住址：河北省承德市鹰手营子矿区营子镇南街四十栋小区22号楼4单元3楼\r\n
-作者身份证：130804196408010014\r\n
-作者联系电话：13832429913\r\n
-作者微信号：LIUXIAOYUN1234567890\r\n
-八、后续运营\r\n
-现在处于编写程序阶段，需要最多15名体验人员（当然期间可以更换）。\r\n
-  经体验人员认可该程序能达到目的，且操作简单、数据安全、数据管理可靠，即可发布正式版本。\r\n
-九、费用\r\n
- 发布成本：正式版本每申请一次费用300元/次。\r\n
- 数据存储成本：经查询最低30元/月，最高104元/月。\r\n
-初期成本将由编写者负责，待正式版本发布后由受众人士募集。\r\n
-</text>
-  
-  </view>
-
+ 
 
 </view>

@@ -151,14 +151,8 @@ page {
   display: flex;
   flex-direction: row;
 }
-.shouming{
-  width: 80%;
-  margin-left: 30rpx;
-  
-}
-.biaoti{
+.bangzhu{
+  margin-top: 200rpx;
   display: flex;
-  align-content: center;
-  justify-content: space-between;
-  margin-left: 180rpx;
+  flex-direction: row;
 }

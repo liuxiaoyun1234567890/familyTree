@@ -1,22 +1,73 @@
 <!--pages/userConsole/userConsole.wxml-->
-<view class="container">
+<view >
+  <view wx:if="{{list.length!=0}}"> 
+    <view style="text-align:center" >
+        <text  >管理权转移核准单\r\n </text>
+    </view>
 
-  <view class="list">
-    <view class="list-item" bindtap="testCgi">
-      <text class="request-text">用户 openid 获取成功</text>
-    </view>
-    <view class="list-item" bindtap="testCgi">
-      <text class="request-text">{{openid}}</text>
-    </view>
+    <view style="text-align:left;" wx:for="{{list}}" wx:for-item="xiang" wx:for-index="xu" >
+          <view class="shenqing">
+          <text >{{xu+1}}/{{list.length}}：</text>
+          <text style="color:blue">（ {{xiang.nickName}}）</text>
+          申请了
+          <text style="color:blue">{{xiang.name}}</text> 
+         的数据管理权，理由：
+          <text style="color:blue">{{xiang.yuanyin}}</text>
+            
+            <!-- 编码：{{xiang.bianma}}\r\n -->
+            <!-- 原数据操作者ID：{{xiang.yuanopenid}}\r\n -->
+    <!-- 申请人id:{{xiang._id}}\r\n -->
+          </view>
+          <view  style="text-align:center">
+            <text bindtap="zhuanyi" id="{{xu}}" data-yn="no"    style="color:red "> 不同意 因为不了解</text>
+            <text bindtap="zhuanyi" id="{{xu}}" data-yn="yes" style="color:green"> 同意转移</text> 
+          </view>
+     </view>
+     <view >
+     
+     </view>
+
+
   </view>
 
-  <!-- 云开发用户管理指引 -->
-  <view class="guide">
-    <text class="headline">云开发管理用户</text>
-    <text class="p">1. 打开云开发控制台</text>
-    <image class="image1" src="../../images/console-entrance.png" mode="aspectFit"></image>
-    <text class="p">2. 切换到 "用户管理" 标签页</text>
-    <text class="p">3. 查看访问小程序的用户列表</text>
-  </view>
+
+
+  <!-- class="shuoming" -->
+    <view style="text-align:center" wx:if="{{list.length==0}}">
+        <text  >管理员职责\r\n </text>
+    </view>
+    <view style="text-align:left;" wx:if="{{list.length==0}}">
+      <text >
+        1、依据国家互联网有关规定管理本家谱数据；\r\n
+        2、审查数据真实性；\r\n
+        3、对不可靠数据提醒数据提供者或直接删除；\r\n
+        4、对不完整数据提醒数据提供者或直接修正；\r\n
+        5、对数据管理权转移的申请，给予拒绝或同意。\r\n
+        </text>
+    </view>
+    
+    <view wx:if="{{list.length==0}}"> 
+       <view style="text-align:center">
+        <text  >数据操作者职责\r\n </text>
+      </view>
+          <view style="text-align:left;" wx:if="{{list.length==0}}">
+                <text >
+                  1、依据国家互联网有关规定操作本家谱数据；\r\n
+                  2、对提供数据真实性负责；\r\n
+                  3、努力提供可靠数据；\r\n
+                  4、尊重本家族；\r\n
+                  5、对数据管理权转移的申请，给予拒绝或同意。\r\n
+                </text>
+          </view>
+      </view>
+   <view wx:if="{{list.length==0}}" >
+    <view style="text-align:center; color:green">
+   <text style="text-align:center; color:green">没有管理权转移的申请，按返回键吧</text>
+   </view>
+   <button  bindtap="fanhui" type="primary" > 返回 </button>
+   </view>
+
+
+
 
 </view>

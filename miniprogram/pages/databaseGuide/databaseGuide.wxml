@@ -2,21 +2,21 @@
 
 <view class="xuanxiangview" >
 
-<radio-group class="radiogroup1" bindtap="fangfa">
+<radio-group     class="radiogroup1" bindtap="fangfa">
 <radio id="zengjia" checked="{{fangfa=='zengjia'}}"  >增加 </radio>
 <radio id="xiugai" checked="{{fangfa=='xiugai'}}" >修改 </radio>
 <radio id="chaxun" checked="{{fangfa=='chaxun'}}" >查询 </radio>
 </radio-group>
-<checkbox  class="radiogroup2" checked="{{true}}" bindtap="xianshibianma">显示编码 </checkbox>
+<!-- <checkbox  class="radiogroup2" checked="{{true}}" bindtap="xianshibianma">显示编码 </checkbox> -->
 
-<input class="radiogroup3" wx:if="{{fangfa=='chaxun'}}" type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" ></input> 
+<input class="radiogroup3" wx:if="{{fangfa=='chaxun'}}" type="text" confirm-type="search" placeholder="输姓名更新数据"  bindblur="zhidingxingming" ></input> 
  </view>
 
  <view wx:if="{{fangfa=='chaxun'}}">
-  <view class="hangview">临时数据可查{{list.length}}人,
-    <text  style="color:red" bindtap="chaxunxuhao"  id="-" >上一位</text>
+  <view class="hangview">随机数据{{list.length}}人,
+    <text  style="color:red" bindtap="chaxunxuhao"  id="-" >查上一位</text>
    ( {{listxuhao+1}} )
-    <text style="color:red" bindtap="chaxunxuhao"  id="+" >下一位</text>
+    <text style="color:red" bindtap="chaxunxuhao"  id="+" >查下一位</text>
     
      </view>
 
@@ -28,14 +28,16 @@
 
 <view  bindtap="shurutishi">
    <view wx:for-items="{{biaozhunku}}" wx:for-item="xiang" wx:for-index="xu" wx:for-key="xu">
-    <view class="hangview" wx:if="{{xiang.tb==true || xianshibianma==true}}">
+    <view class="hangview">    <!-- wx:if="{{xiang.tb==true }}" -->
       <view class="shoumingview" id="{{xiang.name}}"  >{{xiang["tishi"]}}
       </view> 
-      <input class="{{!xiang.bianji  ||fangfa=='chaxun'?'valueview valueview1': 'valueview'   }}"   id="{{xu}}"  type="{{xiang.num==true?'number':'text'}}" disabled="{{!xiang.bianji ||fangfa=='chaxun'}}" bindinput="shurushuju"   bindlongtap="shurushujulangtap"      value="{{xiang.zhi}}" cursor="150rpx" placeholder="{{fangfa=='chaxun'?'':(xiang.name=='id'?'长按取码':xiang.tishi)}}" placeholder-class="tishiclass"  > </input>
+      <input class="{{!xiang.bianji  ||fangfa=='chaxun'?'valueview valueview1': 'valueview'   }}"  id="{{xu}}"  type="{{xiang.num==true?'number':'text'}}" disabled="{{!xiang.bianji ||fangfa=='chaxun'}}" bindinput="shurushuju"   bindlongtap="shurushujulangtap"      value="{{ xiang.zhi}}" cursor="150rpx" placeholder="{{fangfa=='chaxun'?'':(xiang.name=='id'?'长按取码':xiang.tishi)}}" placeholder-class="tishiclass"  > </input>
      
       <view  style="color:red"  wx:if="{{xiang['name']=='_openid'  && xiang['zhi']==openid}}"  >我
-        <!--  xiang['lei']=='' && xiang['name']=='name'   .&& -->
-      </view> 
+       </view> 
+       <view  style="color:red"  wx:if="{{xiang['name']=='_openid'  && xiang['zhi']!=openid}}"  >他
+       </view> 
+
     </view>
 </view>
 

@@ -5,24 +5,25 @@ flex-direction: row;
 }
 .inputview {
   margin-left: 20rpx;
-  width: 50%;
+  width: 40%;
+  height:80rpx;
   background: rgb(195, 238, 110);
-  font-size:30rpx;
+  font-size:50rpx;
 }
 .chongmingview{
   margin-top: 20rpx;
   padding: 5rpx;
 }
-.lianyou{
+.lianwu{
   color:red;
   /* text-underline-position: below ; */
   /* text-decoration:underline */
 }
-.lianwu{
+.lianyou{
   color:blue
   }
   .yihang{
-    /* display: flex; */
+    display: flex; 
     flex-direction: row;
   }
   .dibu{
@@ -33,4 +34,22 @@ flex-direction: row;
     size:10rpx;
     color: cadetblue;
     margin-top: 20rpx;
+  }
+  .qidianviewsm{
+    margin-top: 50rpx;
+  }
+  .yemianarea{
+    width: 765rpx;
+    height: 1000rpx;
+     /* border-left: 1px solid red; */
+    /* background-attachment: fixed;
+   
+    border-top: 5px solid red;  */
+    /* background:rgb(244, 250, 238); */
+
+    /* border-block-start: brown; */
+    
+  }
+  .shouming{
+    margin-top:20rpx;
   }

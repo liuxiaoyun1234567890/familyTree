@@ -1,11 +1,24 @@
 <!--pages/xungen/xungen.wxml-->
 
 <scroll-view>
-  <view class="qidianview"   wx:if="{{listtotal.length==0}}"> 
-    起点姓名<input class="inputview"  type="text" confirm-type="search" placeholder="查找姓名离开生效"  bindblur="zhidingxingming" value="刘晓云" ></input> 
+  <view class="qidianview"   wx:if="{{listtotal.length==0  }}"> 
+  <view class="shouming">起点姓名</view>
+    <input class="inputview"  type="text" confirm-type="search" placeholder="输入姓名后搜索"  bindblur="zhidingxingming" value="{{jiazushenqingren}}" ></input> 
+<view class="shouming" >输入姓名后搜索</view>
  </view>
+ 
+ <view class="qidianviewsm"   wx:if="{{listtotal.length==0 && list.length<=1}}"> 
+  <text>\r\n
+     1、展示其父、母、配偶、子女\r\n
+     2、点击任意姓名可进入增加修改查询模块\r\n
+     3、点击任意姓名可换人\r\n
+     4、链接不完整：编码没有及时链接，请到修改人员页面链接保存；或被链接人未登记。\r\n
+     5、如果你打开的页面为转发页面，请按左上角回到主页后再来尝试。   
+    </text>
+</view>
+
  <view wx:if="{{list.length>1}}" class="chongmingview"  >
-      <view> 姓名重名或姓名不全，请选择其中一条记录 </view>
+      <view style="color:blue"> 重名或姓名不全，请选择其中一条 </view>
       <radio-group>
           <view wx:for="{{list}}" wx:for-index="index" wx:for-item="xiang"  wx:for-key="index" class="chongmingview" >
           <radio id="{{index}}" type="primary"  bindtap="xuezerenyuan" ></radio>{{xiang.name}}-{{xiang.xingbie}} -{{xiang.chusheng}}-其父：{{xiang.fuqin.name}}
@@ -14,65 +27,59 @@
  </view>
 
  
-
-
+ 
  <view wx:if="{{listtotal.length>=1}}" class="chongmingview"  >
-      <!-- <view> -----------以下为详细资料-寻找路径---------------- </view> -->
-      
-          <view wx:for="{{listtotal}}" wx:for-index="index" wx:for-item="xiang"   wx:for-key="index" class="chongmingview" >
-            <view>
-                <text style="color:green">{{index+1}}</text>
-                  <text>：{{xiang.name}}，{{xiang.xingbie}} </text> 
-                <text wx:if="{{xiang.chusheng!=''}}">，生于{{xiang.chusheng}}</text>
-                <text wx:if="{{xiang.siwang!=''}}"> ，故于{{xiang.siwang}}</text>
-                <text wx:if="{{xiang.dizhi!=''}}"> ，居住：{{xiang.dizhi}}</text>
-                <text wx:if="{{xiang.yimin!=''}}"> ，{{xiang.yimin}}</text>
-                <text wx:if="{{xiang.dianhua!=''}}"> ，电话：{{xiang.dianhua}}</text>
-          </view>
-          <view class="chongmingview">
-            <text wx:if="{{xiang.fuqin.name!=''}}"  class="{{xiang.fuqin.id!=''?'lianyou':'lianwu'}}" bindtap="xuezebianmaid" id="{{index}}"  data-zhangyou="0" data-daixi="{{xiang.daixi+1}}" data-bianma="{{xiang.fuqin.id}}"  >_父亲：{{xiang.fuqin.name}}</text>
-            <text wx:if="{{xiang.muqin.name!=''}}"  class="{{xiang.muqin.id!=''?'lianyou':'lianwu'}}" bindtap="xuezebianmaid"   id="{{index}}" data-zhangyou="0" data-daixi="{{xiang.daixi+1}}" data-bianma="{{xiang.muqin.id}}"  >  _母亲：{{xiang.muqin.name}}</text>
-          </view>
-          <view wx:for="{{xiang.peio}}" wx:for-item="po" wx:for-index="poi" class="chongmingview" >
-            <text> _配偶</text>
-            <text wx:if="{{po.name!=''}}"  class="{{po.id!=''?'lianyou':'lianwu'}}" bindtap="xuezebianmaid"  id="{{index}}"  data-zhangyou="1" data-daixi="{{xiang.daixi}}"data-bianma="{{po.id}}"  >{{poi+1}}:{{po.name}}</text>
-          </view>
-          <view wx:if="{{xiang.zinv.length>0}}">
-            
-              <view wx:for="{{xiang.zinv}}" wx:for-item="zn" wx:for-index="zni" class="chongmingview" >
-                <text> _子女</text>
-                <text wx:if="{{zn.name!=''}}"  class="{{zn.id!=''?'lianyou':'lianwu'}}" bindtap="xuezebianmaid"   id="{{index}}" data-zhangyou="1" data-daixi="{{xiang.daixi-1}}"  data-bianma="{{zn.id}}"  >{{zni+1}}:{{zn.guanxi}}{{zn.name}}</text>
-              </view>
-            </view>
+   <movable-area class="yemianarea" > 
+      <!-- <view> -----------以下为详细资料---------------- </view> -->
+      <view wx:if="{{fangshi==0}}" > <text bindtap="xuezebianmaidshuaxin"  style="color:green" id="{{xu}}" data-bianma="{{listtotal[xu]._id}}" data-name="{{listtotal[xu].name}}"  >修改后刷新 </text>点击姓名换人 </view>
+      <view wx:if="{{fangshi==1}}">点击姓名进入增加修改查询模块 </view>
 
-           <view>
-            <text wx:if="{{xiang.tbname!=''}}"> 备注：{{xiang.tbname}}</text>
-          </view>
-          <view class="chongmingview">
-            <text style="color:green;size:20rpx" wx:if="{{xiang.tbtime!=''}}"> 时间及昵称：{{xiang.tbtime}}</text>
-          </view>
+      <movable-view x="110" y="100" direction="horizontal"  bindtap="xuezebianmaid"  id="{{xu}}" data-bianma="{{listtotal[xu]._id}}" data-name="{{listtotal[xu].name}}"   style="color:green;font-size:50rpx"      >{{listtotal[xu].name}}</movable-view>
+
+      <movable-view x="10" y="40" direction="horizontal"  style="color:green;font-size:20rpx"     wx:if="{{listtotal[xu].fuqin.name!=''}}"  >父亲 </movable-view>
+      <movable-view x="30" y="20" direction="horizontal"   style="font-size:40rpx"   bindtap="xuezebianmaid" id="{{xu}}"   data-bianma="{{listtotal[xu].fuqin.id}}" data-name="{{listtotal[xu].fuqin.name}}"     wx:if="{{listtotal[xu].fuqin.name!=''}}" class="{{listtotal[xu].fuqin.id!=''?'lianyou':'lianwu'}}" > {{listtotal[xu].fuqin.name}}</movable-view>
+
+      <movable-view x="200" y="40" direction="horizontal"  style="color:green;font-size:20rpx"     wx:if="{{listtotal[xu].muqin.name!=''}}" >母亲 </movable-view>
+      <movable-view x="220" y="10" direction="horizontal"   style="font-size:40rpx"   bindtap="xuezebianmaid" id="{{xu}}"   data-bianma="{{listtotal[xu].muqin.id}}" data-name="{{listtotal[xu].muqin.name}}"     wx:if="{{listtotal[xu].muqin.name!=''}}" class="{{listtotal[xu].muqin.id!=''?'lianyou':'lianwu'}}" > {{listtotal[xu].muqin.name}}</movable-view>
+
+      <movable-view x="180" y="130" direction="horizontal"  style="color:green;font-size:20rpx"     wx:if="{{listtotal[xu].peio.length>=1}}" >配偶 </movable-view>
+      <view wx:for="{{listtotal[xu].peio}}" wx:for-index="index" wx:for-item="xiang">
+      <movable-view x="{{200+index*30}}" y="110" direction="horizontal"   style="font-size:40rpx"   bindtap="xuezebianmaid" id="{{xu}}"   data-bianma="{{xiang.id}}" data-name="{{xiang.name}}" class="{{xiang.id!=''?'lianyou':'lianwu'}}"    > {{xiang.name}}</movable-view>
+       </view>  
+
+       <movable-view x="10" y="220" direction="horizontal"  style="color:green;font-size:20rpx"     wx:if="{{listtotal[xu].zinv.length>=1}}" >子女 </movable-view>
+      <view wx:for="{{listtotal[xu].zinv}}" wx:for-index="index" wx:for-item="xiang">
+      <movable-view x="{{30+index*30}}" y="210" direction="horizontal"   style="font-size:40rpx"   bindtap="xuezebianmaid" id="{{xu}}"   data-bianma="{{xiang.id}}" data-name="{{xiang.name}}"  class="{{xiang.id!=''?'lianyou':'lianwu'}}"    >  {{xiang.guanxi}} {{xiang.name}}</movable-view>
+       </view>    
+
+       <text>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n </text> 
+        
+                <text>\r\n{{listtotal[xu].name}}，{{listtotal[xu].xingbie}} </text> 
+                <text wx:if="{{listtotal[xu].chusheng!=''}}">，生于{{listtotal[xu].chusheng}}</text>
+                <text wx:if="{{listtotal[xu].siwang!=''}}"> ，故于{{listtotal[xu].siwang}}</text>
+                <text wx:if="{{listtotal[xu].dizhi!=''}}"> ，居住：{{listtotal[xu].dizhi}}</text>
+                <text wx:if="{{listtotal[xu].yimin=='是'}}"> ，已故</text>
+                <text wx:if="{{listtotal[xu].dianhua!=''}}"> ，电话：{{listtotal[xu].dianhua}}</text>
+            <text wx:if="{{listtotal[xu].tbname!=''}}"> 备注：{{listtotal[xu].tbname}}</text>
+        
           
-         
-        </view>
-        <view class="dibu">
+            <text style="color:green;size:20rpx" wx:if="{{xiang.tbtime!=''}}">\r\n数据更新时间及昵称：{{listtotal[xu].tbtime}}</text>
+          
+        
+</movable-area>
+      <radio-group>
+          <!--" -->
+          <radio id="qh0"   checked="{{fangshi==0}}"   bindtap="qiehuanmoshi"  >寻亲模式</radio>
+          <radio id="qh1"   checked="{{fangshi==1}}" bindtap="qiehuanmoshi" >数据修改模式</radio>
+          <radio id="qhfanhui"   bindtap="qiehuanmoshi" >从头再来</radio> 
+          
+      </radio-group>
+ </view>
+       <view class="dibu">
           <text class="lianyou "> 此色表示链接完整,能查看数据 </text>  
           <text class="lianwu"> 此色没有链接的数据 </text>  
-          <text > 先父亲再母亲。先幼子再长子，配偶最后，长幼关系比较合理（最近原则） 男性代际如下 </text>
+          
         </view>
- </view>
-
- <view wx:if="{{listtotal.length>=1}}"  >
-          <view wx:for="{{listtotal}}" wx:for-index="index" wx:for-item="xiang"   wx:for-key="index"  class="yihang" >
-                    <view wx:if="{{xiang.xingbie=='男'}}" class="yihang huizong">
-                            {{xiang.daixi}}代 {{xiang.name}}_子女
-                            <block wx:for="{{xiang.zinv}}" wx:for-item="zn" wx:for-index="zni" class="yihang"  >
-                                <text wx:if="{{zn.name!=''}}">{{zn.name}} </text>
-                            </block>
-                      
-                    </view>
-            </view>
- </view>
-
 
 
 </scroll-view>

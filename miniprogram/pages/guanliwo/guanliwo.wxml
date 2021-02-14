@@ -17,7 +17,7 @@
 </view>
 <view class="lianjie ">  <text> {{xiang.lianjie}}</text></view>
 <view wx:if="{{xiang._openid==openid}}">
-<button  type="warn" id="{{xiang._id}}" data-xu="{{xu}}" bindtap="shanchudange" >删除第{{ yehao*pagejilu+xu+1}}条数据↑ </button>  
+<button  type="warn" id="{{xiang._id}}" data-xu="{{xu}}" bindtap="shanchudange" >删除第{{ yehao*pagejilu+xu+1}}条↑ </button>  
 </view>
 
 

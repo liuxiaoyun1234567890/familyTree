@@ -1,0 +1,15 @@
+<!--pages/shuzhuangputu/shuzhuangputu.wxml-->
+<scroll-view scroll-x="{{true}}" scroll-y="{{true}}">
+    <view class="liuarea" > 
+
+    人数{{jiaputotal.length}},共{{maxdaixi}}代
+     宽{{maxxzhi-zuoyizhi+20}}高{{maxdaixi*90}}像素
+     <text bindtap="baocunxiangpian"  style="color:green">保存照片</text>
+    </view>
+    
+    <canvas canvas-id="mycanvas" style="width:{{(maxxzhi-zuoyizhi+20)}}px;height:{{maxdaixi*90}}px;border: brown 1rpx solid;" > </canvas>
+     
+   
+
+    
+</scroll-view>

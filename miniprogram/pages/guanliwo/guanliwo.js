@@ -31,7 +31,7 @@ Page({
     })
      }
       wx.setNavigationBarTitle({
-      title: that.data.jiazumingcheng+ '_我的专区' 
+      title: "("+that.data.jiazumingcheng+ ') 我录入的数据' 
     })
     var jiazutotal=0
     var totalpage=0
